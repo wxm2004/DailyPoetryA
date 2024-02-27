@@ -3,11 +3,19 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
+        <PackageReference Include="sqlite-net-pcl" Version="1.8.116"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="poetrydb.sqlite3"/>
+        <EmbeddedResource Include="poetrydb.sqlite3">
+            <LogicalName>poetrydb.sqlite3</LogicalName>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>
