@@ -21,7 +21,11 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.9" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.9" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Semi.Avalonia" Version="11.0.7" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\DailyPoetryA.Library\DailyPoetryA.Library.csproj" />
     </ItemGroup>
 </Project>
