@@ -50,7 +50,7 @@ public class ServiceLocator {
             .AddSingleton<IRootNavigationService, RootNavigationService>();
         serviceCollection.AddSingleton<IPoetryStorage, PoetryStorage>();
 
-        if (OperatingSystem.IsLinux()) {
+        if (OperatingSystem.IsLinux() || OperatingSystem.IsWindows()) {
             serviceCollection
                 .AddSingleton<IPreferenceStorage, FilePreferenceStorage>();
         } else {
