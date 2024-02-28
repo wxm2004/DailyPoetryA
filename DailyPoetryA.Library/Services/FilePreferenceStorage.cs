@@ -1,9 +1,6 @@
-using System;
-using System.IO;
 using DailyPoetryA.Library.Helpers;
-using DailyPoetryA.Library.Services;
 
-namespace DailyPoetryA.Services;
+namespace DailyPoetryA.Library.Services;
 
 public class FilePreferenceStorage : IPreferenceStorage {
     public void Set(string key, int value) => Set(key, value.ToString());

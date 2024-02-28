@@ -49,14 +49,8 @@ public class ServiceLocator {
         serviceCollection
             .AddSingleton<IRootNavigationService, RootNavigationService>();
         serviceCollection.AddSingleton<IPoetryStorage, PoetryStorage>();
-
-        if (OperatingSystem.IsLinux() || OperatingSystem.IsWindows()) {
-            serviceCollection
-                .AddSingleton<IPreferenceStorage, FilePreferenceStorage>();
-        } else {
-            serviceCollection
-                .AddSingleton<IPreferenceStorage, MauiPreferenceStorage>();
-        }
+        serviceCollection
+            .AddSingleton<IPreferenceStorage, FilePreferenceStorage>();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }
