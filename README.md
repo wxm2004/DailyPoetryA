@@ -4,9 +4,9 @@
 
 早先版本：
 
-.NET MAUI Blazor Hybrid版本：https://gitee.com/zhangyin-gitee/daily-poetry-h
-.NET MAUI版本：https://gitee.com/zhangyin-gitee/daily-poetry-m
-Xamarin版本：https://gitee.com/zhangyin-gitee/DailyPoetryX
+* .NET MAUI Blazor Hybrid版本：https://gitee.com/zhangyin-gitee/daily-poetry-h
+* .NET MAUI版本：https://gitee.com/zhangyin-gitee/daily-poetry-m
+* Xamarin版本：https://gitee.com/zhangyin-gitee/DailyPoetryX
 
 ## 参考链接
 
