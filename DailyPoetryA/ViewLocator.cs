@@ -1,7 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using DailyPoetryA.ViewModels;
+using DailyPoetryA.Library.ViewModels;
 
 namespace DailyPoetryA;
 
@@ -10,7 +10,9 @@ public class ViewLocator : IDataTemplate {
         if (data is null)
             return null;
 
-        var name = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
+        var name = data.GetType().FullName!
+            .Replace("ViewModel", "View", StringComparison.Ordinal)
+            .Replace("DailyPoetryA.Library.", "DailyPoetryA.");
         var type = Type.GetType(name);
 
         if (type != null) {

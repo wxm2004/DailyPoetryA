@@ -9,6 +9,7 @@ public class PoetryStorage : IPoetryStorage {
 
     public const string DbName = "poetrydb.sqlite3";
 
+    // TODO Update path
     public static readonly string PoetryDbPath =
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder

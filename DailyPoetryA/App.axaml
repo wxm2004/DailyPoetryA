@@ -3,12 +3,16 @@
              x:Class="DailyPoetryA.App"
              xmlns:local="using:DailyPoetryA"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ServiceLocator x:Key="ServiceLocator"></local:ServiceLocator>
+        </ResourceDictionary>
+    </Application.Resources>
 
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
-  
+
     <Application.Styles>
         <StyleInclude Source="avares://Semi.Avalonia/Themes/Index.axaml" />
     </Application.Styles>
