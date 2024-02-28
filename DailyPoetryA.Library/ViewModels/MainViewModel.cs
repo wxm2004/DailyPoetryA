@@ -23,6 +23,13 @@ public class MainViewModel : ViewModelBase {
         set => SetProperty(ref _isPaneOpen, value);
     }
 
+    private ViewModelBase _content;
+
+    public ViewModelBase Content {
+        get => _content;
+        set => SetProperty(ref _content, value);
+    }
+
     public ICommand OpenPaneCommand { get; }
 
     public void OpenNavigationPane() => IsPaneOpen = true;
