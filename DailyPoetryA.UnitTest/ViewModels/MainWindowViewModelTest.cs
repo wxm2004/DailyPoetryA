@@ -4,7 +4,7 @@ using Moq;
 
 namespace DailyPoetryA.UnitTest.ViewModels;
 
-public class InitializationPageViewModelTest {
+public class MainWindowViewModelTest {
     [Fact]
     public async Task OnInitializedAsync_NotInitialized() {
         var poetryStorageMock = new Mock<IPoetryStorage>();
@@ -18,17 +18,16 @@ public class InitializationPageViewModelTest {
         var rootNavigationServiceMock = new Mock<IRootNavigationService>();
         var mockRootNavigationService = rootNavigationServiceMock.Object;
 
-        var initializationPageViewModel = new InitializationViewModel(
+        var mainWindowViewModel = new MainWindowViewModel(
             mockPoetryStorage, // mockFavoriteStorage,
             mockRootNavigationService);
 
-        await initializationPageViewModel.OnInitializedAsync();
+        mainWindowViewModel.OnInitialized();
         poetryStorageMock.Verify(p => p.IsInitialized, Times.Once);
-        poetryStorageMock.Verify(p => p.InitializeAsync(), Times.Once);
         // favoriteStorageMock.Verify(p => p.IsInitialized, Times.Once);
-        // favoriteStorageMock.Verify(p => p.InitializeAsync(), Times.Once);
         rootNavigationServiceMock.Verify(
-            p => p.NavigateTo(RootNavigationConstant.MainView), Times.Once);
+            p => p.NavigateTo(RootNavigationConstant.InitializationView),
+            Times.Once);
     }
 
     [Fact]
@@ -45,15 +44,13 @@ public class InitializationPageViewModelTest {
         var mockRootNavigationService = rootNavigationServiceMock.Object;
 
 
-        var initializationPageViewModel = new InitializationViewModel(
+        var mainWindowViewModel = new MainWindowViewModel(
             mockPoetryStorage, // mockFavoriteStorage,
             mockRootNavigationService);
 
-        await initializationPageViewModel.OnInitializedAsync();
+        mainWindowViewModel.OnInitialized();
         poetryStorageMock.Verify(p => p.IsInitialized, Times.Once);
-        poetryStorageMock.Verify(p => p.InitializeAsync(), Times.Never);
         // favoriteStorageMock.Verify(p => p.IsInitialized, Times.Once);
-        // favoriteStorageMock.Verify(p => p.InitializeAsync(), Times.Never);
         rootNavigationServiceMock.Verify(
             p => p.NavigateTo(RootNavigationConstant.MainView), Times.Once);
     }
