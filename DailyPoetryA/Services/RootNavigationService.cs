@@ -1,9 +1,5 @@
 using System;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using DailyPoetryA.Library.Services;
-using DailyPoetryA.Library.ViewModels;
 
 namespace DailyPoetryA.Services;
 
