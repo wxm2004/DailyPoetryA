@@ -44,6 +44,7 @@ public class ServiceLocator {
         serviceCollection.AddSingleton<MainWindowViewModel>();
         serviceCollection.AddSingleton<ResultViewModel>();
         serviceCollection.AddSingleton<InitializationViewModel>();
+        serviceCollection.AddSingleton<MainViewModel>();
 
         serviceCollection
             .AddSingleton<IRootNavigationService, RootNavigationService>();

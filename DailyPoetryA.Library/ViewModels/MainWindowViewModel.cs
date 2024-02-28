@@ -13,7 +13,7 @@ public class MainWindowViewModel : ViewModelBase {
         _poetryStorage = poetryStorage;
         _rootNavigationService = rootNavigationService;
 
-        OnLoadedCommand = new RelayCommand(OnLoaded);
+        OnInitializedCommand = new RelayCommand(OnInitialized);
     }
 
     private ViewModelBase _content;
@@ -23,12 +23,14 @@ public class MainWindowViewModel : ViewModelBase {
         set => SetProperty(ref _content, value);
     }
 
-    public ICommand OnLoadedCommand { get; }
+    public ICommand OnInitializedCommand { get; }
 
-    private void OnLoaded() {
+    public void OnInitialized() {
         if (!_poetryStorage.IsInitialized) {
             _rootNavigationService.NavigateTo(RootNavigationConstant
                 .InitializationView);
+        } else {
+            _rootNavigationService.NavigateTo(RootNavigationConstant.MainView);
         }
     }
 }

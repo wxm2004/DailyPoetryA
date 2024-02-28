@@ -16,7 +16,7 @@
     <i:Interaction.Behaviors>
         <ia:EventTriggerBehavior EventName="Initialized"
                                  SourceObject="{Binding #TheMainWindow}">
-            <ia:InvokeCommandAction Command="{Binding OnLoadedCommand}"></ia:InvokeCommandAction>
+            <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
         </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 </Window>
