@@ -2,9 +2,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
-             x:Class="DailyPoetryA.Views.MainView">
-    Welcome to MainView!
+             x:Class="DailyPoetryA.Views.MainView"
+             d:DataContext="{Binding MainViewModel, Source={StaticResource ServiceLocator}}">
+    <SplitView DisplayMode="Overlay"
+               IsPaneOpen="{Binding IsPaneOpen}">
+        <SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Background="#3498DB"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding ClosePaneCommand}">
+                        <i:Icon Foreground="#ffffff"
+                                Value="fa-x">
+                        </i:Icon>
+                    </Button>
+
+                    <Grid Grid.Column="1">
+                        <Label Foreground="#3498DB"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               Margin="10,0,0,0"
+                               Content="每日诗词" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </SplitView.Pane>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenPaneCommand}">
+                    <i:Icon Foreground="#3498DB"
+                            Value="fa-bars">
+                    </i:Icon>
+                </Button>
+
+                <Grid Grid.Column="1"
+                      Background="#3498DB">
+                    <Label Foreground="#ffffff"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Margin="10,0,0,0"
+                           Content="{Binding Title}">
+                    </Label>
+                </Grid>
+            </Grid>
+        </Grid>
+    </SplitView>
 </UserControl>
