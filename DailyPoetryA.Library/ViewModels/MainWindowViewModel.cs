@@ -5,8 +5,8 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase {
-    private IPoetryStorage _poetryStorage;
-    private IRootNavigationService _rootNavigationService;
+    private readonly IPoetryStorage _poetryStorage;
+    private readonly IRootNavigationService _rootNavigationService;
 
     public MainWindowViewModel(IPoetryStorage poetryStorage,
         IRootNavigationService rootNavigationService) {
