@@ -1,32 +1,30 @@
 using System;
+using System.IO;
+using DailyPoetryA.Library.Helpers;
 using DailyPoetryA.Library.Services;
 
 namespace DailyPoetryA.Services;
 
 public class FilePreferenceStorage : IPreferenceStorage {
-    // TODO Implememnt
-    
-    public void Set(string key, int value) {
-        throw new NotImplementedException();
-    }
+    public void Set(string key, int value) => Set(key, value.ToString());
 
-    public int Get(string key, int defaultValue) {
-        throw new NotImplementedException();
-    }
+    public int Get(string key, int defaultValue) =>
+        int.TryParse(Get(key, string.Empty), out var value)
+            ? value
+            : defaultValue;
 
     public void Set(string key, string value) {
-        throw new NotImplementedException();
+        var path = PathHelper.GetLocalFilePath(key);
+        File.WriteAllText(path, value);
     }
 
     public string Get(string key, string defaultValue) {
-        throw new NotImplementedException();
+        var path = PathHelper.GetLocalFilePath(key);
+        return File.Exists(path) ? File.ReadAllText(path) : defaultValue;
     }
 
-    public void Set(string key, DateTime value) {
-        throw new NotImplementedException();
-    }
+    public void Set(string key, DateTime value) => Set(key, value.ToString());
 
-    public DateTime Get(string key, DateTime defaultValue) {
-        throw new NotImplementedException();
-    }
+    public DateTime Get(string key, DateTime defaultValue) =>
+        DateTime.TryParse(Get(key, ""), out var value) ? value : defaultValue;
 }
