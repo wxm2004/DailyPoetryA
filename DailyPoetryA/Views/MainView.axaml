@@ -9,7 +9,7 @@
              x:Class="DailyPoetryA.Views.MainView"
              d:DataContext="{Binding MainViewModel, Source={StaticResource ServiceLocator}}">
     <SplitView DisplayMode="Overlay"
-               IsPaneOpen="{Binding IsPaneOpen}">
+               IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}">
         <SplitView.Pane>
             <Grid>
                 <Grid.RowDefinitions>
