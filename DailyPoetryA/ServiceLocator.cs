@@ -51,6 +51,7 @@ public class ServiceLocator {
         serviceCollection.AddSingleton<IPoetryStorage, PoetryStorage>();
         serviceCollection
             .AddSingleton<IPreferenceStorage, FilePreferenceStorage>();
+        serviceCollection.AddSingleton<IAlertService, AlertService>();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }

@@ -37,8 +37,7 @@ public class BingImageService : ITodayImageService {
         } catch (Exception e) {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.HttpClientErrorTitle,
-                ErrorMessageHelper.GetHttpClientError(Server, e.Message),
-                ErrorMessageHelper.HttpClientErrorButton);
+                ErrorMessageHelper.GetHttpClientError(Server, e.Message));
             return new TodayImageServiceCheckUpdateResult { HasUpdate = false };
         }
 
@@ -78,8 +77,7 @@ public class BingImageService : ITodayImageService {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.JsonDeserializationErrorTitle,
                 ErrorMessageHelper.GetJsonDeserializationError(Server,
-                    e.Message),
-                ErrorMessageHelper.JsonDeserializationErrorButton);
+                    e.Message));
             return new TodayImageServiceCheckUpdateResult { HasUpdate = false };
         }
 
@@ -91,8 +89,7 @@ public class BingImageService : ITodayImageService {
         } catch (Exception e) {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.HttpClientErrorTitle,
-                ErrorMessageHelper.GetHttpClientError(Server, e.Message),
-                ErrorMessageHelper.HttpClientErrorButton);
+                ErrorMessageHelper.GetHttpClientError(Server, e.Message));
             return new TodayImageServiceCheckUpdateResult { HasUpdate = false };
         }
 

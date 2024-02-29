@@ -33,8 +33,8 @@ public class BingImageServiceTest {
             p => p.SaveTodayImageAsync(It.IsAny<TodayImage>(),
                 It.IsAny<bool>()), Times.Never);
         alertServiceMock.Verify(
-            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>()), Times.Never);
+            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact(Skip = "依赖远程服务的测试")]
@@ -65,7 +65,7 @@ public class BingImageServiceTest {
             p => p.SaveTodayImageAsync(checkUpdateResult.TodayImage, false),
             Times.Once);
         alertServiceMock.Verify(
-            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>()), Times.Never);
+            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 }

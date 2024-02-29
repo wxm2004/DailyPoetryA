@@ -43,8 +43,7 @@ public class JinrishiciService : ITodayPoetryService {
         } catch (Exception e) {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.HttpClientErrorTitle,
-                ErrorMessageHelper.GetHttpClientError(Server, e.Message),
-                ErrorMessageHelper.HttpClientErrorButton);
+                ErrorMessageHelper.GetHttpClientError(Server, e.Message));
             return await GetRandomPoetryAsync();
         }
 
@@ -60,8 +59,7 @@ public class JinrishiciService : ITodayPoetryService {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.JsonDeserializationErrorTitle,
                 ErrorMessageHelper.GetJsonDeserializationError(Server,
-                    e.Message),
-                ErrorMessageHelper.JsonDeserializationErrorButton);
+                    e.Message));
             return await GetRandomPoetryAsync();
         }
 
@@ -89,8 +87,7 @@ public class JinrishiciService : ITodayPoetryService {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.JsonDeserializationErrorTitle,
                 ErrorMessageHelper.GetJsonDeserializationError(Server,
-                    e.Message),
-                ErrorMessageHelper.JsonDeserializationErrorButton);
+                    e.Message));
             return await GetRandomPoetryAsync();
         }
     }
@@ -111,8 +108,7 @@ public class JinrishiciService : ITodayPoetryService {
         } catch (Exception e) {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.HttpClientErrorTitle,
-                ErrorMessageHelper.GetHttpClientError(Server, e.Message),
-                ErrorMessageHelper.HttpClientErrorButton);
+                ErrorMessageHelper.GetHttpClientError(Server, e.Message));
             return _token;
         }
 
@@ -126,8 +122,7 @@ public class JinrishiciService : ITodayPoetryService {
             await _alertService.AlertAsync(
                 ErrorMessageHelper.JsonDeserializationErrorTitle,
                 ErrorMessageHelper.GetJsonDeserializationError(Server,
-                    e.Message),
-                ErrorMessageHelper.JsonDeserializationErrorButton);
+                    e.Message));
             return _token;
         }
 

@@ -22,8 +22,8 @@ public class JinrishiciServiceTest {
 
         Assert.False(string.IsNullOrWhiteSpace(token));
         alertServiceMock.Verify(
-            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>()), Times.Never);
+            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
         preferenceServiceMock.Verify(
             p => p.Get(JinrishiciService.JinrishiciTokenKey, string.Empty),
             Times.Once);
@@ -50,8 +50,8 @@ public class JinrishiciServiceTest {
         Assert.Equal(TodayPoetrySources.Jinrishici, todayPoetry.Source);
         Assert.False(string.IsNullOrWhiteSpace(todayPoetry.Snippet));
         alertServiceMock.Verify(
-            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>()), Times.Never);
+            p => p.AlertAsync(It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
         preferenceServiceMock.Verify(
             p => p.Get(JinrishiciService.JinrishiciTokenKey, string.Empty),
             Times.Once);

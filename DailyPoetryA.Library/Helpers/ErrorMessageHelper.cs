@@ -3,8 +3,6 @@ namespace DailyPoetryA.Library.Helpers;
 public class ErrorMessageHelper {
     public const string HttpClientErrorTitle = "连接错误";
 
-    public const string HttpClientErrorButton = "确定";
-
     public static string GetHttpClientError(string server, string message) =>
         $"与{server}连接时发生了错误：\n{message}";
 
