@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using DailyPoetryA.Library.Services;
 
 namespace DailyPoetryA.Library.ViewModels;
 
@@ -48,6 +49,18 @@ public class MainViewModel : ViewModelBase {
         // TODO 设置Menu, 清空ContentStack, 设置Content, PushContent
     }
 
+    private IEnumerable<MenuItem> MenuItems { get; } = [
+        new MenuItem {
+            Name = "今日推荐", View = MenuNavigationConstants.TodayView
+        },
+        new MenuItem {
+            Name = "诗词搜索", View = MenuNavigationConstants.QueryView
+        },
+        new MenuItem {
+            Name = "诗词收藏", View = MenuNavigationConstants.FavoriteView
+        },
+    ];
+
     public ObservableCollection<ViewModelBase> ContentStack { get; } = new();
 
     public ICommand GoBackCommand { get; }
@@ -60,4 +73,9 @@ public class MainViewModel : ViewModelBase {
         Content = ContentStack[0];
         ContentStack.RemoveAt(0);
     }
+}
+
+public class MenuItem {
+    public string View { get; set; }
+    public string Name { get; set; }
 }

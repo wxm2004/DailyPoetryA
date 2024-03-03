@@ -46,6 +46,18 @@
                                Content="每日诗词" />
                     </Grid>
                 </Grid>
+
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding MenuItems}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"
+                                   FontSize="20"
+                                   Margin="50,5,0,5">
+                            </Label>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </SplitView.Pane>
 
