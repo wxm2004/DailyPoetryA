@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="https://github.com/projektanker/icons.avalonia"
              xmlns:lc="using:DailyPoetryA.Converters"
+             xmlns:lvm="using:DailyPoetryA.Library.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
@@ -48,7 +49,8 @@
                 </Grid>
 
                 <ListBox Grid.Row="1"
-                         ItemsSource="{Binding MenuItems}">
+                         ItemsSource="{Binding Source={x:Static lvm:MenuItem.MenuItems}}"
+                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Name}"

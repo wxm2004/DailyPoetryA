@@ -30,7 +30,7 @@ public class MainViewModel : ViewModelBase {
 
     public ViewModelBase Content {
         get => _content;
-        set => SetProperty(ref _content, value);
+        private set => SetProperty(ref _content, value);
     }
 
     public ICommand OpenPaneCommand { get; }
@@ -45,21 +45,27 @@ public class MainViewModel : ViewModelBase {
         ContentStack.Insert(0, Content = _content);
 
     public void SetMenuAndContent(string view, ViewModelBase content) {
+        // 如果view是当前view则return
         throw new NotImplementedException();
         // TODO 设置Menu, 清空ContentStack, 设置Content, PushContent
     }
 
-    private IEnumerable<MenuItem> MenuItems { get; } = [
-        new MenuItem {
-            Name = "今日推荐", View = MenuNavigationConstants.TodayView
-        },
-        new MenuItem {
-            Name = "诗词搜索", View = MenuNavigationConstants.QueryView
-        },
-        new MenuItem {
-            Name = "诗词收藏", View = MenuNavigationConstants.FavoriteView
-        },
-    ];
+    private MenuItem _selectedMenuItem;
+
+    public MenuItem SelectedMenuItem {
+        get => _selectedMenuItem;
+        set => SetProperty(ref _selectedMenuItem, value);
+    }
+
+    public ICommand OnSelectedMenuItemChangedCommand { get; }
+
+    public void OnSelectedMenuItemChanged() {
+        if (SelectedMenuItem is null) {
+            return;
+        }
+
+        // todo call menu navigation service
+    }
 
     public ObservableCollection<ViewModelBase> ContentStack { get; } = new();
 
@@ -76,6 +82,21 @@ public class MainViewModel : ViewModelBase {
 }
 
 public class MenuItem {
-    public string View { get; set; }
-    public string Name { get; set; }
+    public string View { get; private init; }
+    public string Name { get; private init; }
+
+    private MenuItem() { }
+
+    private static MenuItem TodayView =>
+        new() { Name = "今日推荐", View = MenuNavigationConstants.TodayView };
+
+    private static MenuItem QueryView =>
+        new() { Name = "诗词搜索", View = MenuNavigationConstants.QueryView };
+
+    private static MenuItem FavoriteView =>
+        new() { Name = "诗词收藏", View = MenuNavigationConstants.FavoriteView };
+
+    public static IEnumerable<MenuItem> MenuItems => [
+        TodayView, QueryView, FavoriteView
+    ];
 }
