@@ -56,9 +56,50 @@ public class MainViewModelTest {
         var mainViewModel = new MainViewModel(null);
         mainViewModel.OnMenuTapped();
     }
-    
+
     [Fact]
     public void OnMenuTapped_SelectedMenuItemIsNotNull() {
-        // TODO
+        var menuNavigationServiceMock = new Mock<IMenuNavigationService>();
+        var mockMenuNavigationService = menuNavigationServiceMock.Object;
+
+        var menuItem = MenuItem.MenuItems.First(p =>
+            p.View == MenuNavigationConstant.TodayView);
+        var mainViewModel = new MainViewModel(mockMenuNavigationService);
+        mainViewModel.SelectedMenuItem = menuItem;
+        mainViewModel.OnMenuTapped();
+
+        menuNavigationServiceMock.Verify(p => p.NavigateTo(menuItem.View, null),
+            Times.Once);
+    }
+
+    [Fact]
+    public void GoBack_ContentStackCountIs0() {
+        var mainViewModel = new MainViewModel(null);
+        Assert.Empty(mainViewModel.ContentStack);
+        mainViewModel.GoBack();
+        Assert.Empty(mainViewModel.ContentStack);
+    }
+
+    [Fact]
+    public void GoBack_ContentStackCountIs1() {
+        var mainViewModel = new MainViewModel(null);
+        var content = new Mock<ViewModelBase>().Object;
+
+        mainViewModel.PushContent(content);
+        mainViewModel.GoBack();
+        Assert.Single(mainViewModel.ContentStack);
+    }
+
+    [Fact]
+    public void GoBack_ContentStackCountIs2() {
+        var mainViewModel = new MainViewModel(null);
+        var content1 = new Mock<ViewModelBase>().Object;
+        var content2 = new Mock<ViewModelBase>().Object;
+
+        mainViewModel.PushContent(content1);
+        mainViewModel.PushContent(content2);
+        mainViewModel.GoBack();
+        Assert.Single(mainViewModel.ContentStack);
+        Assert.Same(content1, mainViewModel.ContentStack[0]);
     }
 }
