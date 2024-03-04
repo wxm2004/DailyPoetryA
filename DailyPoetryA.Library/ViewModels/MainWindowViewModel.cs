@@ -7,11 +7,14 @@ namespace DailyPoetryA.Library.ViewModels;
 public class MainWindowViewModel : ViewModelBase {
     private readonly IPoetryStorage _poetryStorage;
     private readonly IRootNavigationService _rootNavigationService;
+    private readonly IMenuNavigationService _menuNavigationService;
 
     public MainWindowViewModel(IPoetryStorage poetryStorage,
-        IRootNavigationService rootNavigationService) {
+        IRootNavigationService rootNavigationService,
+        IMenuNavigationService menuNavigationService) {
         _poetryStorage = poetryStorage;
         _rootNavigationService = rootNavigationService;
+        _menuNavigationService = menuNavigationService;
 
         OnInitializedCommand = new RelayCommand(OnInitialized);
     }
@@ -31,6 +34,7 @@ public class MainWindowViewModel : ViewModelBase {
                 .InitializationView);
         } else {
             _rootNavigationService.NavigateTo(RootNavigationConstant.MainView);
+            _menuNavigationService.NavigateTo(MenuNavigationConstant.TodayView);
         }
     }
 }

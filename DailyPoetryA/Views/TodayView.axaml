@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:lc="using:DailyPoetryA.Converters"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="DailyPoetryA.Views.TodayView"
+             x:Name="TheTodayView"
+             d:DataContext="{Binding TodayViewModel, Source={StaticResource ServiceLocator}}">
+    <UserControl.Resources>
+        <lc:ByteArrayToBitmapConverter x:Key="ByteArrayToBitmapConverter"></lc:ByteArrayToBitmapConverter>
+        <lc:NegativeConverter x:Key="NegativeConverter"></lc:NegativeConverter>
+    </UserControl.Resources>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized"
+                                 SourceObject="{Binding #TheTodayView}">
+            <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image
+            Source="{Binding TodayImage.ImageBytes, Converter={StaticResource ByteArrayToBitmapConverter}}"
+            Stretch="UniformToFill" />
+
+        <StackPanel Background="#66000000"
+                    VerticalAlignment="Bottom">
+            <StackPanel Margin="8"
+                        IsVisible="{Binding IsLoading}">
+                <ProgressBar Foreground="White"
+                             IsIndeterminate="{Binding IsLoading}"
+                             Width="50"
+                             Height="50"
+                             Margin="0,0,0,8"
+                             Theme="{DynamicResource ProgressRing}"
+                             ShowProgressText="False" />
+                <Label Foreground="White"
+                       Content="正在载入"
+                       HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel Margin="8"
+                        IsVisible="{Binding IsLoading, 
+                         Converter={StaticResource NegativeConverter}}">
+                <Label FontSize="28"
+                       Foreground="White"
+                       Margin="0,0,0,8"
+                       Content="{Binding TodayPoetry.Snippet}" />
+                <StackPanel x:Name="DetailStackLayout">
+                    <Label FontSize="18"
+                           Foreground="White"
+                           Margin="0,0,8,8"
+                           Content="{Binding TodayPoetry.Author}"
+                           VerticalAlignment="Center" />
+                    <Label FontSize="18"
+                           Foreground="White"
+                           Margin="0,0,8,8"
+                           Content="{Binding TodayPoetry.Name}"
+                           VerticalAlignment="Center" />
+                    <Button HorizontalAlignment="Left"
+                            Margin="0,0,0,8"
+                            Content="查看详细"
+                            Command="{Binding ShowDetailCommand}"
+                            VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Background="#66000000">
+                <Label Foreground="White"
+                       FontSize="12"
+                       Content="{Binding TodayImage.Copyright}">
+                </Label>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

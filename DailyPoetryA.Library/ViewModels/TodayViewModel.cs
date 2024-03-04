@@ -8,16 +8,16 @@ namespace DailyPoetryA.Library.ViewModels;
 public class TodayViewModel : ViewModelBase {
     private ITodayImageService _todayImageService;
     private ITodayPoetryService _todayPoetryService;
-    private IMenuNavigationService _menuNavigationService;
+    private IContentNavigationService _contentNavigationService;
 
     public TodayViewModel(ITodayImageService todayImageService,
         ITodayPoetryService todayPoetryService,
-        IMenuNavigationService menuNavigationService) {
+        IContentNavigationService contentNavigationService) {
         _todayImageService = todayImageService;
         _todayPoetryService = todayPoetryService;
-        _menuNavigationService = menuNavigationService;
+        _contentNavigationService = contentNavigationService;
 
-        OnLoadedCommand = new RelayCommand(OnLoaded);
+        OnInitializedCommand = new RelayCommand(OnInitialized);
         ShowDetailCommand = new RelayCommand(ShowDetail);
         QueryCommand = new RelayCommand(Query);
     }
@@ -43,9 +43,9 @@ public class TodayViewModel : ViewModelBase {
         private set => SetProperty(ref _isLoading, value);
     }
 
-    public ICommand OnLoadedCommand { get; }
+    public ICommand OnInitializedCommand { get; }
 
-    public void OnLoaded() {
+    public void OnInitialized() {
         Task.Run(async () => {
             TodayImage = await _todayImageService.GetTodayImageAsync();
 
@@ -57,6 +57,7 @@ public class TodayViewModel : ViewModelBase {
 
         Task.Run(async () => {
             IsLoading = true;
+            await Task.Delay(3000);
             TodayPoetry = await _todayPoetryService.GetTodayPoetryAsync();
             IsLoading = false;
         });
@@ -65,17 +66,15 @@ public class TodayViewModel : ViewModelBase {
     public ICommand ShowDetailCommand { get; }
 
     public void ShowDetail() {
-        _menuNavigationService.NavigateTo(ContentNavigationConstant
+        _contentNavigationService.NavigateTo(ContentNavigationConstant
             .TodayDetailView);
     }
 
     public ICommand QueryCommand { get; }
 
     public void Query() =>
-        _menuNavigationService.NavigateTo(MenuNavigationConstant.QueryView,
+        _contentNavigationService.NavigateTo(MenuNavigationConstant.QueryView,
             new PoetryQuery {
                 Author = TodayPoetry.Author, Name = TodayPoetry.Name
             });
-
-    // TODO
 }

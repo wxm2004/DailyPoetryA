@@ -42,7 +42,7 @@ public class TodayViewModelTest {
             }
         };
 
-        todayPageViewModel.OnLoaded();
+        todayPageViewModel.OnInitialized();
         while (todayImageList.Count != 2 || isLoadingList.Count != 2) {
             await Task.Delay(100);
         }
@@ -86,7 +86,7 @@ public class TodayViewModelTest {
             }
         };
 
-        todayPageViewModel.OnLoaded();
+        todayPageViewModel.OnInitialized();
         while (todayImageList.Count != 1) {
             await Task.Delay(100);
         }
@@ -100,30 +100,30 @@ public class TodayViewModelTest {
 
     [Fact]
     public async Task ShowDetailCommandFunction_Default() {
-        var menuNavigationServiceMock = new Mock<IMenuNavigationService>();
-        var mockMenuNavigationService = menuNavigationServiceMock.Object;
+        var contentNavigationServiceMock = new Mock<IContentNavigationService>();
+        var mockContentNavigationService = contentNavigationServiceMock.Object;
 
         var todayPageViewModel = new TodayViewModel(null, null,
-            mockMenuNavigationService);
+            mockContentNavigationService);
         todayPageViewModel.ShowDetail();
-        menuNavigationServiceMock.Verify(
+        contentNavigationServiceMock.Verify(
             p => p.NavigateTo(ContentNavigationConstant.TodayDetailView, null),
             Times.Once);
     }
 
     public async Task QueryCommandFunction_Default() {
         object parameter = null;
-        var menuNavigationServiceMock = new Mock<IMenuNavigationService>();
-        menuNavigationServiceMock
+        var contentNavigationServiceMock = new Mock<IContentNavigationService>();
+        contentNavigationServiceMock
             .Setup(p => p.NavigateTo(MenuNavigationConstant.QueryView,
                 It.IsAny<object>()))
             .Callback<string, object>((s, o) => parameter = o);
-        var mockMenuNavigationService = menuNavigationServiceMock.Object;
+        var mockContentNavigationService = contentNavigationServiceMock.Object;
 
         var todayPoetry = new TodayPoetry { Name = "小重山", Author = "张良能" };
 
         var todayPageViewModel =
-            new TodayViewModel(null, null, mockMenuNavigationService);
+            new TodayViewModel(null, null, mockContentNavigationService);
         todayPageViewModel.TodayPoetry = todayPoetry;
         todayPageViewModel.Query();
 

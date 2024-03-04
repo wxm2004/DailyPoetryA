@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using DailyPoetryA.Library.ViewModels;
@@ -6,6 +7,8 @@ using DailyPoetryA.Library.ViewModels;
 namespace DailyPoetryA;
 
 public class ViewLocator : IDataTemplate {
+    private Dictionary<Type, Control> _cache = new();
+
     public Control? Build(object? data) {
         if (data is null)
             return null;
@@ -16,7 +19,9 @@ public class ViewLocator : IDataTemplate {
         var type = Type.GetType(name);
 
         if (type != null) {
-            var control = (Control)Activator.CreateInstance(type)!;
+            var control = _cache.TryGetValue(type, out var value)
+                ? value
+                : _cache[type] = (Control)Activator.CreateInstance(type)!;
             control.DataContext = data;
             return control;
         }
