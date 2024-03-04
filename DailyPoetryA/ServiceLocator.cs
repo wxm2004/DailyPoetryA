@@ -29,29 +29,62 @@ public class ServiceLocator {
         }
     }
 
-    public MainWindowViewModel MainWindowViewModel =>
-        _serviceProvider.GetService<MainWindowViewModel>();
-
     public InitializationViewModel InitializationViewModel =>
         _serviceProvider.GetService<InitializationViewModel>();
+
+    public MainWindowViewModel MainWindowViewModel =>
+        _serviceProvider.GetService<MainWindowViewModel>();
 
     public MainViewModel MainViewModel =>
         _serviceProvider.GetService<MainViewModel>();
 
+    public TodayViewModel TodayViewModel =>
+        _serviceProvider.GetService<TodayViewModel>();
+
+    public QueryViewModel QueryViewModel =>
+        _serviceProvider.GetService<QueryViewModel>();
+
+    public FavoriteViewModel FavoriteViewModel =>
+        _serviceProvider.GetService<FavoriteViewModel>();
+
+    public TodayDetailViewModel TodayDetailViewModel =>
+        _serviceProvider.GetService<TodayDetailViewModel>();
+
+    public ResultViewModel ResultViewModel =>
+        _serviceProvider.GetService<ResultViewModel>();
+
+    public DetailViewModel DetailViewModel =>
+        _serviceProvider.GetService<DetailViewModel>();
+
+
     public ServiceLocator() {
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddSingleton<MainWindowViewModel>();
-        serviceCollection.AddSingleton<ResultViewModel>();
         serviceCollection.AddSingleton<InitializationViewModel>();
+        serviceCollection.AddSingleton<MainWindowViewModel>();
         serviceCollection.AddSingleton<MainViewModel>();
+        serviceCollection.AddSingleton<TodayViewModel>();
+        serviceCollection.AddSingleton<QueryViewModel>();
+        serviceCollection.AddSingleton<FavoriteViewModel>();
+        serviceCollection.AddSingleton<TodayDetailViewModel>();
+        serviceCollection.AddSingleton<ResultViewModel>();
+        serviceCollection.AddSingleton<DetailViewModel>();
 
         serviceCollection
             .AddSingleton<IRootNavigationService, RootNavigationService>();
+        serviceCollection
+            .AddSingleton<IMenuNavigationService, MenuNavigationService>();
+        serviceCollection
+            .AddSingleton<IContentNavigationService,
+                ContentNavigationService>();
         serviceCollection.AddSingleton<IPoetryStorage, PoetryStorage>();
         serviceCollection
             .AddSingleton<IPreferenceStorage, FilePreferenceStorage>();
         serviceCollection.AddSingleton<IAlertService, AlertService>();
+        serviceCollection.AddSingleton<ITodayImageService, BingImageService>();
+        serviceCollection.AddSingleton<ITodayImageStorage, TodayImageStorage>();
+        serviceCollection
+            .AddSingleton<ITodayPoetryService, JinrishiciService>();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }

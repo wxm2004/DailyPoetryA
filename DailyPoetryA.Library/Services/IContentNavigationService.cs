@@ -7,5 +7,7 @@ public interface IContentNavigationService {
 public static class ContentNavigationConstant {
     public const string TodayDetailView = nameof(TodayDetailView);
 
-    public const string QueryView = nameof(QueryView);
+    public const string ResultView = nameof(ResultView);
+
+    public const string DetailView = nameof(DetailView);
 }

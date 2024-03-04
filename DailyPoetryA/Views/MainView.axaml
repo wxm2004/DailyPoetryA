@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:icon="https://github.com/projektanker/icons.avalonia"
              xmlns:lc="using:DailyPoetryA.Converters"
              xmlns:lvm="using:DailyPoetryA.Library.ViewModels"
              mc:Ignorable="d"
@@ -34,9 +36,9 @@
                             VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch"
                             Command="{Binding ClosePaneCommand}">
-                        <i:Icon Foreground="#ffffff"
-                                Value="fa-x">
-                        </i:Icon>
+                        <icon:Icon Foreground="#ffffff"
+                                   Value="fa-x">
+                        </icon:Icon>
                     </Button>
 
                     <Grid Grid.Column="1">
@@ -50,7 +52,16 @@
 
                 <ListBox Grid.Row="1"
                          ItemsSource="{Binding Source={x:Static lvm:MenuItem.MenuItems}}"
-                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+                         x:Name="MenuListBox">
+                    <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped"
+                                                 SourceObject="{Binding #MenuListBox}">
+                            <ia:InvokeCommandAction
+                                Command="{Binding OnMenuItemTappedCommand}">
+                            </ia:InvokeCommandAction>
+                        </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Name}"
@@ -80,9 +91,9 @@
                         Width="50"
                         HorizontalAlignment="Stretch"
                         Command="{Binding OpenPaneCommand}">
-                    <i:Icon Foreground="#3498DB"
-                            Value="fa-bars">
-                    </i:Icon>
+                    <icon:Icon Foreground="#3498DB"
+                               Value="fa-bars">
+                    </icon:Icon>
                 </Button>
 
                 <Button Grid.Column="1"
@@ -90,9 +101,9 @@
                         HorizontalAlignment="Stretch"
                         Command="{Binding GoBackCommand}"
                         IsVisible="{Binding ContentStack, Converter={StaticResource CollectionCountConverter}, ConverterParameter=1}">
-                    <i:Icon Foreground="#3498DB"
-                            Value="fa-arrow-left">
-                    </i:Icon>
+                    <icon:Icon Foreground="#3498DB"
+                               Value="fa-arrow-left">
+                    </icon:Icon>
                 </Button>
 
                 <Grid Grid.Column="2"

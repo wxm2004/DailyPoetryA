@@ -4,7 +4,7 @@ public interface IMenuNavigationService {
     void NavigateTo(string view, object parameter = null);
 }
 
-public static class MenuNavigationConstants {
+public static class MenuNavigationConstant {
     public const string TodayView = nameof(TodayView);
 
     public const string QueryView = nameof(QueryView);

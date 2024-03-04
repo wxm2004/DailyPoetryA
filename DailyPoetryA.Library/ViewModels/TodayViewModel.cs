@@ -10,7 +10,7 @@ public class TodayViewModel : ViewModelBase {
 
     private ITodayPoetryService _todayPoetryService;
 
-    private IContentNavigationService _contentNavigationService;
+    private IMenuNavigationService _menuNavigationService;
 
     private TodayImage? _todayImage;
 
@@ -20,10 +20,10 @@ public class TodayViewModel : ViewModelBase {
 
     public TodayViewModel(ITodayImageService todayImageService,
         ITodayPoetryService todayPoetryService,
-        IContentNavigationService contentNavigationService) {
+        IMenuNavigationService menuNavigationService) {
         _todayImageService = todayImageService;
         _todayPoetryService = todayPoetryService;
-        _contentNavigationService = contentNavigationService;
+        _menuNavigationService = menuNavigationService;
 
         OnLoadedCommand = new RelayCommand(OnLoaded);
         ShowDetailCommand = new RelayCommand(ShowDetail);
@@ -67,15 +67,14 @@ public class TodayViewModel : ViewModelBase {
     public ICommand ShowDetailCommand { get; }
 
     public void ShowDetail() {
-        _contentNavigationService.NavigateTo(ContentNavigationConstant
+        _menuNavigationService.NavigateTo(ContentNavigationConstant
             .TodayDetailView);
     }
 
     public ICommand QueryCommand { get; }
 
     public void Query() =>
-        _contentNavigationService.NavigateTo(
-            ContentNavigationConstant.QueryView,
+        _menuNavigationService.NavigateTo(MenuNavigationConstant.QueryView,
             new PoetryQuery {
                 Author = TodayPoetry.Author, Name = TodayPoetry.Name
             });

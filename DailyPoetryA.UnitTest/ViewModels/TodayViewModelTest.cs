@@ -100,31 +100,30 @@ public class TodayViewModelTest {
 
     [Fact]
     public async Task ShowDetailCommandFunction_Default() {
-        var contentNavigationServiceMock =
-            new Mock<IContentNavigationService>();
-        var mockContentNavigationService = contentNavigationServiceMock.Object;
+        var menuNavigationServiceMock = new Mock<IMenuNavigationService>();
+        var mockMenuNavigationService = menuNavigationServiceMock.Object;
 
         var todayPageViewModel = new TodayViewModel(null, null,
-            mockContentNavigationService);
+            mockMenuNavigationService);
         todayPageViewModel.ShowDetail();
-        contentNavigationServiceMock.Verify(
+        menuNavigationServiceMock.Verify(
             p => p.NavigateTo(ContentNavigationConstant.TodayDetailView, null),
             Times.Once);
     }
 
     public async Task QueryCommandFunction_Default() {
         object parameter = null;
-        var contentNavigationService = new Mock<IContentNavigationService>();
-        contentNavigationService
-            .Setup(p => p.NavigateTo(ContentNavigationConstant.QueryView,
+        var menuNavigationServiceMock = new Mock<IMenuNavigationService>();
+        menuNavigationServiceMock
+            .Setup(p => p.NavigateTo(MenuNavigationConstant.QueryView,
                 It.IsAny<object>()))
             .Callback<string, object>((s, o) => parameter = o);
-        var mockContentNavigationService = contentNavigationService.Object;
+        var mockMenuNavigationService = menuNavigationServiceMock.Object;
 
         var todayPoetry = new TodayPoetry { Name = "小重山", Author = "张良能" };
 
         var todayPageViewModel =
-            new TodayViewModel(null, null, mockContentNavigationService);
+            new TodayViewModel(null, null, mockMenuNavigationService);
         todayPageViewModel.TodayPoetry = todayPoetry;
         todayPageViewModel.Query();
 

@@ -6,10 +6,15 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class MainViewModel : ViewModelBase {
-    public MainViewModel() {
+    private readonly IMenuNavigationService _menuNavigationService;
+
+    public MainViewModel(IMenuNavigationService menuNavigationService) {
+        _menuNavigationService = menuNavigationService;
+
         OpenPaneCommand = new RelayCommand(OpenNavigationPane);
         ClosePaneCommand = new RelayCommand(CloseNavigationPane);
         GoBackCommand = new RelayCommand(GoBack);
+        OnMenuItemTappedCommand = new RelayCommand(OnMenuItemTapped);
     }
 
     private string _title = "DailyPoetryA";
@@ -42,12 +47,14 @@ public class MainViewModel : ViewModelBase {
     public void CloseNavigationPane() => IsPaneOpen = false;
 
     public void PushContent(ViewModelBase content) =>
-        ContentStack.Insert(0, Content = _content);
+        ContentStack.Insert(0, Content = content);
 
     public void SetMenuAndContent(string view, ViewModelBase content) {
-        // 如果view是当前view则return
-        throw new NotImplementedException();
-        // TODO 设置Menu, 清空ContentStack, 设置Content, PushContent
+        ContentStack.Clear();
+        PushContent(content);
+        SelectedMenuItem =
+            MenuItem.MenuItems.FirstOrDefault(p => p.View == view);
+        IsPaneOpen = false;
     }
 
     private MenuItem _selectedMenuItem;
@@ -57,15 +64,10 @@ public class MainViewModel : ViewModelBase {
         set => SetProperty(ref _selectedMenuItem, value);
     }
 
-    public ICommand OnSelectedMenuItemChangedCommand { get; }
+    public ICommand OnMenuItemTappedCommand { get; }
 
-    public void OnSelectedMenuItemChanged() {
-        if (SelectedMenuItem is null) {
-            return;
-        }
-
-        // todo call menu navigation service
-    }
+    public void OnMenuItemTapped() =>
+        _menuNavigationService.NavigateTo(SelectedMenuItem.View);
 
     public ObservableCollection<ViewModelBase> ContentStack { get; } = new();
 
@@ -88,13 +90,13 @@ public class MenuItem {
     private MenuItem() { }
 
     private static MenuItem TodayView =>
-        new() { Name = "今日推荐", View = MenuNavigationConstants.TodayView };
+        new() { Name = "今日推荐", View = MenuNavigationConstant.TodayView };
 
     private static MenuItem QueryView =>
-        new() { Name = "诗词搜索", View = MenuNavigationConstants.QueryView };
+        new() { Name = "诗词搜索", View = MenuNavigationConstant.QueryView };
 
     private static MenuItem FavoriteView =>
-        new() { Name = "诗词收藏", View = MenuNavigationConstants.FavoriteView };
+        new() { Name = "诗词收藏", View = MenuNavigationConstant.FavoriteView };
 
     public static IEnumerable<MenuItem> MenuItems => [
         TodayView, QueryView, FavoriteView
