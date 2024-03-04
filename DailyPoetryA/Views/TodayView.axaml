@@ -78,6 +78,7 @@
 
             <StackPanel Background="#66000000">
                 <Label Foreground="White"
+                       Margin="8"
                        FontSize="12"
                        Content="{Binding TodayImage.Copyright}">
                 </Label>
