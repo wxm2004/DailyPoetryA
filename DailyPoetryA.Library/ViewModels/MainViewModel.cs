@@ -11,8 +11,8 @@ public class MainViewModel : ViewModelBase {
     public MainViewModel(IMenuNavigationService menuNavigationService) {
         _menuNavigationService = menuNavigationService;
 
-        OpenPaneCommand = new RelayCommand(OpenNavigationPane);
-        ClosePaneCommand = new RelayCommand(CloseNavigationPane);
+        OpenPaneCommand = new RelayCommand(OpenPane);
+        ClosePaneCommand = new RelayCommand(ClosePane);
         GoBackCommand = new RelayCommand(GoBack);
         OnMenuTappedCommand = new RelayCommand(OnMenuTapped);
     }
@@ -21,14 +21,14 @@ public class MainViewModel : ViewModelBase {
 
     public string Title {
         get => _title;
-        set => SetProperty(ref _title, value);
+        private set => SetProperty(ref _title, value);
     }
 
     private bool _isPaneOpen;
 
     public bool IsPaneOpen {
         get => _isPaneOpen;
-        set => SetProperty(ref _isPaneOpen, value);
+        private set => SetProperty(ref _isPaneOpen, value);
     }
 
     private ViewModelBase _content;
@@ -40,11 +40,11 @@ public class MainViewModel : ViewModelBase {
 
     public ICommand OpenPaneCommand { get; }
 
-    public void OpenNavigationPane() => IsPaneOpen = true;
+    public void OpenPane() => IsPaneOpen = true;
 
     public ICommand ClosePaneCommand { get; }
 
-    public void CloseNavigationPane() => IsPaneOpen = false;
+    public void ClosePane() => IsPaneOpen = false;
 
     public void PushContent(ViewModelBase content) =>
         ContentStack.Insert(0, Content = content);
@@ -54,6 +54,7 @@ public class MainViewModel : ViewModelBase {
         PushContent(content);
         SelectedMenuItem =
             MenuItem.MenuItems.FirstOrDefault(p => p.View == view);
+        Title = SelectedMenuItem.Name;
         IsPaneOpen = false;
     }
 
@@ -103,7 +104,7 @@ public class MenuItem {
     private static MenuItem FavoriteView =>
         new() { Name = "诗词收藏", View = MenuNavigationConstant.FavoriteView };
 
-    public static IEnumerable<MenuItem> MenuItems => [
+    public static IEnumerable<MenuItem> MenuItems { get; } = [
         TodayView, QueryView, FavoriteView
     ];
 }

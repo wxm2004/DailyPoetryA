@@ -6,7 +6,6 @@ namespace DailyPoetryA.Library.ViewModels;
 
 public class InitializationViewModel : ViewModelBase {
     private readonly IPoetryStorage _poetryStorage;
-
     private readonly IRootNavigationService _rootNavigationService;
 
     public InitializationViewModel(IPoetryStorage poetryStorage,

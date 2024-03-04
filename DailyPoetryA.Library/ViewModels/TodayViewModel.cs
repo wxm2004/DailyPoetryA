@@ -7,16 +7,8 @@ namespace DailyPoetryA.Library.ViewModels;
 
 public class TodayViewModel : ViewModelBase {
     private ITodayImageService _todayImageService;
-
     private ITodayPoetryService _todayPoetryService;
-
     private IMenuNavigationService _menuNavigationService;
-
-    private TodayImage? _todayImage;
-
-    private TodayPoetry? _todayPoetry;
-
-    private bool _isLoading;
 
     public TodayViewModel(ITodayImageService todayImageService,
         ITodayPoetryService todayPoetryService,
@@ -30,19 +22,25 @@ public class TodayViewModel : ViewModelBase {
         QueryCommand = new RelayCommand(Query);
     }
 
+    private TodayImage? _todayImage;
+
     public TodayImage? TodayImage {
         get => _todayImage;
-        set => SetProperty(ref _todayImage, value);
+        private set => SetProperty(ref _todayImage, value);
     }
+
+    private TodayPoetry? _todayPoetry;
 
     public TodayPoetry? TodayPoetry {
         get => _todayPoetry;
         set => SetProperty(ref _todayPoetry, value);
     }
 
+    private bool _isLoading;
+
     public bool IsLoading {
         get => _isLoading;
-        set => SetProperty(ref _isLoading, value);
+        private set => SetProperty(ref _isLoading, value);
     }
 
     public ICommand OnLoadedCommand { get; }
