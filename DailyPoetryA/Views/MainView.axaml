@@ -58,7 +58,7 @@
                         <ia:EventTriggerBehavior EventName="Tapped"
                                                  SourceObject="{Binding #MenuListBox}">
                             <ia:InvokeCommandAction
-                                Command="{Binding OnMenuItemTappedCommand}">
+                                Command="{Binding OnMenuTappedCommand}">
                             </ia:InvokeCommandAction>
                         </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>

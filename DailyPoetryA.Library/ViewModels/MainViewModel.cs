@@ -14,7 +14,7 @@ public class MainViewModel : ViewModelBase {
         OpenPaneCommand = new RelayCommand(OpenNavigationPane);
         ClosePaneCommand = new RelayCommand(CloseNavigationPane);
         GoBackCommand = new RelayCommand(GoBack);
-        OnMenuItemTappedCommand = new RelayCommand(OnMenuItemTapped);
+        OnMenuTappedCommand = new RelayCommand(OnMenuTapped);
     }
 
     private string _title = "DailyPoetryA";
@@ -64,10 +64,15 @@ public class MainViewModel : ViewModelBase {
         set => SetProperty(ref _selectedMenuItem, value);
     }
 
-    public ICommand OnMenuItemTappedCommand { get; }
+    public ICommand OnMenuTappedCommand { get; }
 
-    public void OnMenuItemTapped() =>
+    public void OnMenuTapped() {
+        if (SelectedMenuItem is null) {
+            return;
+        }
+
         _menuNavigationService.NavigateTo(SelectedMenuItem.View);
+    }
 
     public ObservableCollection<ViewModelBase> ContentStack { get; } = new();
 
