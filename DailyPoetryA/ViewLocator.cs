@@ -18,15 +18,15 @@ public class ViewLocator : IDataTemplate {
             .Replace("DailyPoetryA.Library.", "DailyPoetryA.");
         var type = Type.GetType(name);
 
-        if (type != null) {
-            var control = _cache.TryGetValue(type, out var value)
-                ? value
-                : _cache[type] = (Control)Activator.CreateInstance(type)!;
-            control.DataContext = data;
-            return control;
+        if (type == null) {
+            return new TextBlock { Text = "Not Found: " + name };
         }
 
-        return new TextBlock { Text = "Not Found: " + name };
+        var control = _cache.TryGetValue(type, out var value)
+            ? value
+            : _cache[type] = (Control)Activator.CreateInstance(type)!;
+        control.DataContext = data;
+        return control;
     }
 
     public bool Match(object? data) {
