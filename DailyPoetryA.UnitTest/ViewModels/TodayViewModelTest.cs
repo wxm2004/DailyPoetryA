@@ -27,22 +27,22 @@ public class TodayViewModelTest {
             .ReturnsAsync(todayPoetryToReturn);
         var mockTodayPoetryService = todayPoetryServiceMock.Object;
 
-        var todayPageViewModel = new TodayViewModel(mockImageService,
+        var todayViewModel = new TodayViewModel(mockImageService,
             mockTodayPoetryService, null);
         var todayImageList = new List<TodayImage>();
         var isLoadingList = new List<bool>();
-        todayPageViewModel.PropertyChanged += (sender, args) => {
+        todayViewModel.PropertyChanged += (sender, args) => {
             switch (args.PropertyName) {
                 case nameof(TodayViewModel.TodayImage):
-                    todayImageList.Add(todayPageViewModel.TodayImage);
+                    todayImageList.Add(todayViewModel.TodayImage);
                     break;
                 case nameof(TodayViewModel.IsLoading):
-                    isLoadingList.Add(todayPageViewModel.IsLoading);
+                    isLoadingList.Add(todayViewModel.IsLoading);
                     break;
             }
         };
 
-        todayPageViewModel.OnInitialized();
+        todayViewModel.OnInitialized();
         while (todayImageList.Count != 2 || isLoadingList.Count != 2) {
             await Task.Delay(100);
         }
@@ -51,7 +51,7 @@ public class TodayViewModelTest {
         Assert.Same(newTodayImageToReturn, todayImageList[1]);
         Assert.True(isLoadingList[0]);
         Assert.False(isLoadingList[1]);
-        Assert.Same(todayPoetryToReturn, todayPageViewModel.TodayPoetry);
+        Assert.Same(todayPoetryToReturn, todayViewModel.TodayPoetry);
 
         todayImageServiceMock.Verify(p => p.GetTodayImageAsync(), Times.Once);
         todayImageServiceMock.Verify(p => p.CheckUpdateAsync(), Times.Once);
@@ -75,18 +75,18 @@ public class TodayViewModelTest {
         var todayPoetryServiceMock = new Mock<ITodayPoetryService>();
         var mockTodayPoetryService = todayPoetryServiceMock.Object;
 
-        var todayPageViewModel = new TodayViewModel(mockImageService,
+        var todayViewModel = new TodayViewModel(mockImageService,
             mockTodayPoetryService, null);
         var todayImageList = new List<TodayImage>();
-        todayPageViewModel.PropertyChanged += (sender, args) => {
+        todayViewModel.PropertyChanged += (sender, args) => {
             switch (args.PropertyName) {
                 case nameof(TodayViewModel.TodayImage):
-                    todayImageList.Add(todayPageViewModel.TodayImage);
+                    todayImageList.Add(todayViewModel.TodayImage);
                     break;
             }
         };
 
-        todayPageViewModel.OnInitialized();
+        todayViewModel.OnInitialized();
         while (todayImageList.Count != 1) {
             await Task.Delay(100);
         }
@@ -103,9 +103,9 @@ public class TodayViewModelTest {
         var contentNavigationServiceMock = new Mock<IContentNavigationService>();
         var mockContentNavigationService = contentNavigationServiceMock.Object;
 
-        var todayPageViewModel = new TodayViewModel(null, null,
+        var todayViewModel = new TodayViewModel(null, null,
             mockContentNavigationService);
-        todayPageViewModel.ShowDetail();
+        todayViewModel.ShowDetail();
         contentNavigationServiceMock.Verify(
             p => p.NavigateTo(ContentNavigationConstant.TodayDetailView, null),
             Times.Once);
@@ -122,10 +122,10 @@ public class TodayViewModelTest {
 
         var todayPoetry = new TodayPoetry { Name = "小重山", Author = "张良能" };
 
-        var todayPageViewModel =
+        var todayViewModel =
             new TodayViewModel(null, null, mockContentNavigationService);
-        todayPageViewModel.TodayPoetry = todayPoetry;
-        todayPageViewModel.Query();
+        todayViewModel.TodayPoetry = todayPoetry;
+        todayViewModel.Query();
 
         Assert.IsType<PoetryQuery>(parameter);
         var poetryQuery = (PoetryQuery)parameter;

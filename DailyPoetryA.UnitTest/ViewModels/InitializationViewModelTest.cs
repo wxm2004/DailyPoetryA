@@ -4,7 +4,7 @@ using Moq;
 
 namespace DailyPoetryA.UnitTest.ViewModels;
 
-public class InitializationPageViewModelTest {
+public class InitializationViewModelTest {
     [Fact]
     public async Task OnInitializedAsync_NotInitialized() {
         var poetryStorageMock = new Mock<IPoetryStorage>();
@@ -18,11 +18,11 @@ public class InitializationPageViewModelTest {
         var rootNavigationServiceMock = new Mock<IRootNavigationService>();
         var mockRootNavigationService = rootNavigationServiceMock.Object;
 
-        var initializationPageViewModel = new InitializationViewModel(
+        var initializationViewModel = new InitializationViewModel(
             mockPoetryStorage, // mockFavoriteStorage,
             mockRootNavigationService);
 
-        await initializationPageViewModel.OnInitializedAsync();
+        await initializationViewModel.OnInitializedAsync();
         poetryStorageMock.Verify(p => p.IsInitialized, Times.Once);
         poetryStorageMock.Verify(p => p.InitializeAsync(), Times.Once);
         // favoriteStorageMock.Verify(p => p.IsInitialized, Times.Once);
@@ -45,11 +45,11 @@ public class InitializationPageViewModelTest {
         var mockRootNavigationService = rootNavigationServiceMock.Object;
 
 
-        var initializationPageViewModel = new InitializationViewModel(
+        var initializationViewModel = new InitializationViewModel(
             mockPoetryStorage, // mockFavoriteStorage,
             mockRootNavigationService);
 
-        await initializationPageViewModel.OnInitializedAsync();
+        await initializationViewModel.OnInitializedAsync();
         poetryStorageMock.Verify(p => p.IsInitialized, Times.Once);
         poetryStorageMock.Verify(p => p.InitializeAsync(), Times.Never);
         // favoriteStorageMock.Verify(p => p.IsInitialized, Times.Once);
