@@ -7,5 +7,29 @@
              d:DesignHeight="450"
              x:Class="DailyPoetryA.Views.TodayDetailView"
              d:DataContext="{Binding TodayDetailViewModel, Source={StaticResource ServiceLocator}}">
-    Welcome to Avalonia!
+    <ScrollViewer>
+        <StackPanel Margin="8">
+            <Label FontSize="18"
+                   Margin="0,0,0,8"
+                   HorizontalAlignment="Center"
+                   Content="{Binding TodayPoetry.Name}" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,8">
+                <Label FontSize="12"
+                       Content="{Binding TodayPoetry.Dynasty}" />
+                <Label FontSize="12"
+                       Content="·" />
+                <Label FontSize="12"
+                       Content="{Binding TodayPoetry.Author}" />
+            </StackPanel>
+            <Label FontSize="18"
+                   Margin="0,0,0,8"
+                   HorizontalAlignment="Center"
+                   Content="{Binding TodayPoetry.Content}" />
+            <Button HorizontalAlignment="Center"
+                    Content="在本地数据库中查找"
+                    Command="{Binding QueryCommand}" />
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
