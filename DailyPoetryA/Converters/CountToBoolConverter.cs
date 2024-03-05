@@ -5,12 +5,12 @@ using Avalonia.Data.Converters;
 
 namespace DailyPoetryA.Converters;
 
-public class CollectionCountConverter : IValueConverter {
+public class CountToBoolConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter,
         CultureInfo culture) =>
-        value is ICollection collection && parameter is string countString &&
-        int.TryParse(countString, out var count)
-            ? collection.Count > count
+        value is int count && parameter is string conditionString &&
+        int.TryParse(conditionString, out var condition)
+            ? count > condition
             : null;
 
     public object ConvertBack(object value, Type targetType, object parameter,

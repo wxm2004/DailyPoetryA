@@ -84,8 +84,8 @@ public class MainViewModel : ViewModelBase {
             return;
         }
 
-        Content = ContentStack[0];
         ContentStack.RemoveAt(0);
+        Content = ContentStack[0];
     }
 }
 

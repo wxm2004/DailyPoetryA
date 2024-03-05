@@ -57,7 +57,7 @@ public class TodayViewModel : ViewModelBase {
 
         Task.Run(async () => {
             IsLoading = true;
-            await Task.Delay(3000);
+            await Task.Delay(1000);
             TodayPoetry = await _todayPoetryService.GetTodayPoetryAsync();
             IsLoading = false;
         });
@@ -66,8 +66,8 @@ public class TodayViewModel : ViewModelBase {
     public ICommand ShowDetailCommand { get; }
 
     public void ShowDetail() {
-        _contentNavigationService.NavigateTo(ContentNavigationConstant
-            .TodayDetailView);
+        _contentNavigationService.NavigateTo(
+            ContentNavigationConstant.TodayDetailView, TodayPoetry);
     }
 
     public ICommand QueryCommand { get; }

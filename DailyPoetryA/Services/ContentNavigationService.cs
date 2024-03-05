@@ -15,5 +15,11 @@ public class ContentNavigationService : IContentNavigationService {
                 .DetailViewModel,
             _ => throw new Exception("未知的视图。")
         };
+
+        if (parameter != null) {
+            viewModel.SetParameter(parameter);
+        }
+
+        ServiceLocator.Current.MainViewModel.PushContent(viewModel);
     }
 }

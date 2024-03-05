@@ -13,7 +13,7 @@
              x:Class="DailyPoetryA.Views.MainView"
              d:DataContext="{Binding MainViewModel, Source={StaticResource ServiceLocator}}">
     <UserControl.Resources>
-        <lc:CollectionCountConverter x:Key="CollectionCountConverter"></lc:CollectionCountConverter>
+        <lc:CountToBoolConverter x:Key="CountToBoolConverter"></lc:CountToBoolConverter>
     </UserControl.Resources>
 
     <SplitView DisplayMode="Overlay"
@@ -100,7 +100,7 @@
                         Width="50"
                         HorizontalAlignment="Stretch"
                         Command="{Binding GoBackCommand}"
-                        IsVisible="{Binding ContentStack, Converter={StaticResource CollectionCountConverter}, ConverterParameter=1}">
+                        IsVisible="{Binding ContentStack.Count, Converter={StaticResource CountToBoolConverter}, ConverterParameter=1}">
                     <icon:Icon Foreground="#3498DB"
                                Value="fa-arrow-left">
                     </icon:Icon>
