@@ -12,6 +12,7 @@ public class QueryViewModel : ViewModelBase {
 
     public QueryViewModel(IContentNavigationService contentNavigationService) {
         this.contentNavigationService = contentNavigationService;
+        FilterViewModelCollection = [new FilterViewModel(this)];
     }
 
     public override void SetParameter(object parameter) {
@@ -30,7 +31,7 @@ public class QueryViewModel : ViewModelBase {
 
     public ObservableCollection<FilterViewModel> FilterViewModelCollection {
         get;
-    } = new();
+    }
 
     public virtual void AddFilterViewModel(FilterViewModel filterViewModel) =>
         FilterViewModelCollection.Insert(
