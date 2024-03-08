@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="DailyPoetryA.Views.QueryView"
+             d:DataContext="{Binding QueryViewModel, Source={StaticResource ServiceLocator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView SeparatorVisibility="None"
+                  SelectionMode="None"
+                  RowHeight="100"
+                  ItemsSource="{Binding FilterViewModelCollection}">
+            <ListView.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="WinUI"
+                        Value="0,12,12,0">
+                    </On>
+                    <On Platform="Android"
+                        Value="12">
+                    </On>
+                </OnPlatform>
+            </ListView.Margin>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <BoxView Grid.RowSpan="2"
+                                     Color="#3498DB" />
+                            <Picker Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="8,0,4,4"
+                                    ItemsSource="{x:Static lvm:FilterType.FilterTypes}"
+                                    SelectedItem="{Binding Type}"
+                                    ItemDisplayBinding="{Binding Name}" />
+                            <Entry Grid.Row="0"
+                                   Grid.Column="2"
+                                   Margin="4,0,0,4"
+                                   Text="{Binding Content}" />
+                            <StackLayout Grid.Row="1"
+                                         Grid.Column="1"
+                                         Grid.ColumnSpan="2"
+                                         Orientation="Horizontal">
+                                <Button Margin="8,4,4,0"
+                                        Text="添加"
+                                        Command="{Binding AddCommand}" />
+                                <Button Margin="4,4,0,0"
+                                        Text="删除"
+                                        Command="{Binding RemoveCommand}" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Margin="12"
+                Text="查询"
+                Grid.Row="1"
+                Command="{Binding QueryCommand}" />
+    </Grid>
+</UserControl>
