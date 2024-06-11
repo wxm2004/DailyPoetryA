@@ -75,7 +75,7 @@ public class MainViewModel : ViewModelBase {
         _menuNavigationService.NavigateTo(SelectedMenuItem.View);
     }
 
-    public ObservableCollection<ViewModelBase> ContentStack { get; } = new();
+    public ObservableCollection<ViewModelBase> ContentStack { get; } = [];
 
     public ICommand GoBackCommand { get; }
 

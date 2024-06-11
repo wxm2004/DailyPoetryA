@@ -156,7 +156,7 @@ public class JinrishiciOrigin {
     public string Title { get; set; } = string.Empty;
     public string Dynasty { get; set; } = string.Empty;
     public string Author { get; set; } = string.Empty;
-    public List<string> Content { get; set; } = new();
+    public List<string> Content { get; set; } = [];
 }
 
 public class JinrishiciData {

@@ -89,7 +89,7 @@ public class FilterType {
         new("内容", nameof(Poetry.Content));
 
     public static List<FilterType> FilterTypes { get; } =
-        new() { NameFilter, AuthorNameFilter, ContentFilter };
+        [NameFilter, AuthorNameFilter, ContentFilter];
 
     private FilterType(string name, string propertyName) {
         Name = name;
