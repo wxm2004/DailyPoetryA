@@ -10,6 +10,6 @@ public interface IPoetryStorage {
 
     Task<Poetry> GetPoetryAsync(int id);
 
-    Task<IEnumerable<Poetry>> GetPoetriesAsync(
+    Task<IList<Poetry>> GetPoetriesAsync(
         Expression<Func<Poetry, bool>> where, int skip, int take);
 }

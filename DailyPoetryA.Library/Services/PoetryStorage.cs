@@ -43,7 +43,7 @@ public class PoetryStorage : IPoetryStorage {
     public Task<Poetry> GetPoetryAsync(int id) =>
         Connection.Table<Poetry>().FirstOrDefaultAsync(p => p.Id == id);
 
-    public async Task<IEnumerable<Poetry>> GetPoetriesAsync(
+    public async Task<IList<Poetry>> GetPoetriesAsync(
         Expression<Func<Poetry, bool>> where, int skip, int take) =>
         await Connection.Table<Poetry>().Where(where).Skip(skip).Take(take)
             .ToListAsync();
