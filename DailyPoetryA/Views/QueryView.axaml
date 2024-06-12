@@ -8,7 +8,6 @@
              d:DesignHeight="450"
              x:Class="DailyPoetryA.Views.QueryView"
              d:DataContext="{Binding QueryViewModel, Source={StaticResource ServiceLocator}}">
-    <!--TODO update ui-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
