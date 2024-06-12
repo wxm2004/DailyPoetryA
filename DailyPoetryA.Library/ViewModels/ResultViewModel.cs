@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Windows.Input;
+using AvaloniaInfiniteScrolling;
 using CommunityToolkit.Mvvm.Input;
 using DailyPoetryA.Library.Models;
 using DailyPoetryA.Library.Services;
@@ -15,9 +16,28 @@ public class ResultViewModel : ViewModelBase {
     private Expression<Func<Poetry, bool>> _where;
 
     public ResultViewModel(IPoetryStorage poetryStorage, IContentNavigationService contentNavigationService) {
-        _poetryStorage = poetryStorage;
         _contentNavigationService = contentNavigationService;
-        AppendCommand = new AsyncRelayCommand(AppendAsync);
+        PoetryCollection = new AvaloniaInfiniteScrollCollection<Poetry> {
+            OnCanLoadMore = () => _canLoadMore,
+            OnLoadMore = async () => {
+                Status = Loading;
+                var poetries = await poetryStorage.GetPoetriesAsync(_where,
+                    PoetryCollection.Count, PageSize);
+                Status = string.Empty;
+
+                if (poetries.Count < PageSize) {
+                    _canLoadMore = false;
+                    Status = NoMoreResult;
+                }
+
+                if (PoetryCollection.Count == 0 && poetries.Count == 0) {
+                    Status = NoResult;
+                }
+
+                return poetries;
+
+            }
+        };
     }
 
     private bool _canLoadMore;
@@ -28,11 +48,11 @@ public class ResultViewModel : ViewModelBase {
         }
 
         _where = where;
-        PoetryCollection.Clear();
         _canLoadMore = true;
+        PoetryCollection.Clear();
     }
 
-    public ObservableCollection<Poetry> PoetryCollection { get; } = [];
+    public AvaloniaInfiniteScrollCollection<Poetry> PoetryCollection { get; }
 
     private string _status;
 
@@ -48,30 +68,4 @@ public class ResultViewModel : ViewModelBase {
     public const string NoMoreResult = "没有更多结果";
 
     public const int PageSize = 20;
-
-    public ICommand AppendCommand { get; }
-
-    public async Task AppendAsync() {
-        if (!_canLoadMore) {
-            return;
-        }
-
-        Status = Loading;
-        await Task.Delay(3000);
-        var poetries = await _poetryStorage.GetPoetriesAsync(_where, PoetryCollection.Count, PageSize);
-        Status = string.Empty;
-
-        if (poetries.Count < PageSize) {
-            _canLoadMore = false;
-            Status = NoMoreResult;
-        }
-
-        if (PoetryCollection.Count == 0 && poetries.Count == 0) {
-            Status = NoResult;
-        }
-
-        foreach (var poetry in poetries) {
-            PoetryCollection.Add(poetry);
-        }
-    }
 }
