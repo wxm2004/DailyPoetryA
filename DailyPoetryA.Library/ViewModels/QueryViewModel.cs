@@ -12,7 +12,7 @@ public class QueryViewModel : ViewModelBase {
     private IContentNavigationService _contentNavigationService;
 
     public QueryViewModel(IContentNavigationService contentNavigationService) {
-        this._contentNavigationService = contentNavigationService;
+        _contentNavigationService = contentNavigationService;
         FilterViewModelCollection = [new FilterViewModel(this)];
         QueryCommand = new RelayCommand(Query);
     }
