@@ -18,7 +18,7 @@
                       Margin="12">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2" />
                             <ColumnDefinition Width="Auto" />
@@ -29,8 +29,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <!-- <BoxView Grid.RowSpan="2" -->
-                        <!--          Color="#3498DB" /> -->
+                        <Border Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.RowSpan="2"
+                                Background="#3498DB">
+                        </Border>
                         <ComboBox Grid.Row="0"
                                   Grid.Column="1"
                                   Margin="8,0,4,4"

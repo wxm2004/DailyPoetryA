@@ -12,7 +12,7 @@ public class QueryViewModel : ViewModelBase {
 
     public QueryViewModel(IContentNavigationService contentNavigationService) {
         this.contentNavigationService = contentNavigationService;
-        FilterViewModelCollection = [new FilterViewModel(this)];
+        FilterViewModelCollection = [new FilterViewModel(this), new FilterViewModel(this)];
     }
 
     public override void SetParameter(object parameter) {
