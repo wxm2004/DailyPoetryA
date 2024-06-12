@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,11 +9,12 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class QueryViewModel : ViewModelBase {
-    private IContentNavigationService contentNavigationService;
+    private IContentNavigationService _contentNavigationService;
 
     public QueryViewModel(IContentNavigationService contentNavigationService) {
-        this.contentNavigationService = contentNavigationService;
-        FilterViewModelCollection = [new FilterViewModel(this), new FilterViewModel(this)];
+        this._contentNavigationService = contentNavigationService;
+        FilterViewModelCollection = [new FilterViewModel(this)];
+        QueryCommand = new RelayCommand(Query);
     }
 
     public override void SetParameter(object parameter) {
@@ -29,9 +31,7 @@ public class QueryViewModel : ViewModelBase {
         });
     }
 
-    public ObservableCollection<FilterViewModel> FilterViewModelCollection {
-        get;
-    }
+    public ObservableCollection<FilterViewModel> FilterViewModelCollection { get; }
 
     public virtual void AddFilterViewModel(FilterViewModel filterViewModel) =>
         FilterViewModelCollection.Insert(
@@ -43,6 +43,70 @@ public class QueryViewModel : ViewModelBase {
         if (FilterViewModelCollection.Count == 0) {
             FilterViewModelCollection.Add(new FilterViewModel(this));
         }
+    }
+
+    public ICommand QueryCommand { get; }
+
+    public void Query() {
+        // Connection.Table<Poetry>().Where(p => p.Name.Contains("something")
+        //                                       && p.AuthorName.Contains("something")
+        //                                       && p.Content.Contains("something")
+        //                                 ).ToList();
+
+        // p => p.Name.Contains("something")
+        //      && p.AuthorName.Contains("something")
+        //      && p.Content.Contains("something")
+
+        // p
+        var parameter = Expression.Parameter(typeof(Poetry), "p");
+
+        var aggregatedExpression = FilterViewModelCollection
+            // Those ViewModels who do have a content.
+            .Where(p => !string.IsNullOrWhiteSpace(p.Content))
+            // Translate a FilterViewModel to a condition
+            // e.g. FilterViewModel {
+            //     FileType = {
+            //         Name = "作者",
+            //         PropertyName = "AuthorName"
+            //     },
+            //     Content = "苏轼"
+            // } => p.AuthorName.Contains("苏轼")
+            .Select(p => GetExpression(parameter, p))
+            // Put all the conditions together
+            // e.g. true && p.AuthorName.Contains("苏轼") && p.Content.Contains("老夫")
+            .Aggregate(Expression.Constant(true) as Expression,
+                Expression.AndAlso);
+
+        // Turning the expression into a lambda expression
+        var where =
+            Expression.Lambda<Func<Poetry, bool>>(aggregatedExpression,
+                parameter);
+
+        _contentNavigationService.NavigateTo(ContentNavigationConstant.ResultView, where);
+    }
+
+    private static Expression GetExpression(ParameterExpression parameter,
+        FilterViewModel filterViewModel) {
+        // parameter => p
+
+        // p.Name or p.AuthorName or p.Content
+        var property = Expression.Property(parameter,
+            filterViewModel.Type.PropertyName);
+
+        // .Contains()
+        var method =
+            typeof(string).GetMethod("Contains", new[] {
+                typeof(string)
+            });
+
+        // "something"
+        var condition =
+            Expression.Constant(filterViewModel.Content, typeof(string));
+
+        // p.Name.Contains("something")
+        // or p.AuthorName.Contains("something")
+        // or p.Content.Contains("something")
+        return Expression.Call(property, method, condition);
     }
 }
 
