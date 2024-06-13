@@ -1,16 +1,16 @@
 using System;
 using System.Globalization;
-using System.IO;
 using Avalonia.Data.Converters;
-using Avalonia.Media.Imaging;
+using DailyPoetryA.Library.Models;
 
 namespace DailyPoetryA.Converters;
 
-public class ByteArrayToBitmapConverter : IValueConverter {
+public class PoetryToStringConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter,
         CultureInfo culture) =>
-        value is byte[] bytes ? new Bitmap(new MemoryStream(bytes)) : null;
-
+        value is Poetry poetry
+            ? $"{poetry.Dynasty} · {poetry.Author}    {poetry.Snippet}"
+            : null;
 
     public object ConvertBack(object value, Type targetType, object parameter,
         CultureInfo culture) =>

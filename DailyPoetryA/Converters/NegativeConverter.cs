@@ -10,7 +10,6 @@ public class NegativeConverter : IValueConverter {
         value is bool b ? !b : null;
 
     public object ConvertBack(object value, Type targetType, object parameter,
-        CultureInfo culture) {
+        CultureInfo culture) =>
         throw new InvalidOperationException();
-    }
 }

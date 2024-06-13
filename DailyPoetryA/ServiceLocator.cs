@@ -1,6 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using DailyPoetryA.DesignViewModels;
 using DailyPoetryA.Library.Services;
 using DailyPoetryA.Library.ViewModels;
 using DailyPoetryA.Services;
@@ -14,7 +15,8 @@ public class ServiceLocator {
     private static ServiceLocator _current;
 
     public static ServiceLocator Current {
-        get {
+        get
+        {
             if (_current is not null) {
                 return _current;
             }
@@ -53,6 +55,9 @@ public class ServiceLocator {
     public ResultViewModel ResultViewModel =>
         _serviceProvider.GetService<ResultViewModel>();
 
+    public ResultDesignViewModel ResultDesignViewModel =>
+        _serviceProvider.GetService<ResultDesignViewModel>();
+
     public DetailViewModel DetailViewModel =>
         _serviceProvider.GetService<DetailViewModel>();
 
@@ -85,6 +90,8 @@ public class ServiceLocator {
         serviceCollection.AddSingleton<ITodayImageStorage, TodayImageStorage>();
         serviceCollection
             .AddSingleton<ITodayPoetryService, JinrishiciService>();
+
+        serviceCollection.AddSingleton<ResultDesignViewModel>();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }

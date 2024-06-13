@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AvaloniaInfiniteScrolling.Collection" Version="1.0.0" />
+        <PackageReference Include="AvaloniaInfiniteScrolling.Collection" Version="1.0.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
         <PackageReference Include="sqlite-net-pcl" Version="1.8.116"/>
     </ItemGroup>

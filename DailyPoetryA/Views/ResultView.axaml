@@ -2,30 +2,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lc="using:DailyPoetryA.Converters"
              xmlns:ais="using:AvaloniaInfiniteScrolling"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="DailyPoetryA.Views.ResultView"
              x:Name="TheResultView"
-             d:DataContext="{Binding ResultViewModel, Source={StaticResource ServiceLocator}}">
+             d:DataContext="{Binding ResultDesignViewModel, Source={StaticResource ServiceLocator}}">
+    <UserControl.Resources>
+        <lc:PoetryToStringConverter x:Key="PoetryToString"></lc:PoetryToStringConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ais:AvaloniaInfiniteScrollControl Grid.Row="0"
-                                           ItemsSource="{Binding PoetryCollection}">
+                                           ItemsSource="{Binding PoetryCollection}"
+                                           Margin="12,12,12,0">
             <ais:AvaloniaInfiniteScrollControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <StackPanel Margin="0,0,0,12">
+                        <TextBlock Text="{Binding Name}"
+                                   FontWeight="Bold" />
+                        <TextBlock
+                            Text="{Binding Converter={StaticResource PoetryToString}}" />
+                    </StackPanel>
+
                 </DataTemplate>
             </ais:AvaloniaInfiniteScrollControl.ItemTemplate>
         </ais:AvaloniaInfiniteScrollControl>
         <TextBlock Grid.Row="1"
-                   Text="{Binding Status}">
+                   Text="{Binding Status}"
+                   Margin="12"
+                   HorizontalAlignment="Center">
         </TextBlock>
-        <Button Grid.Row="2"></Button>
     </Grid>
 </UserControl>

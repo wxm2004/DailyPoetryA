@@ -14,7 +14,6 @@ public class CountToBoolConverter : IValueConverter {
             : null;
 
     public object ConvertBack(object value, Type targetType, object parameter,
-        CultureInfo culture) {
+        CultureInfo culture) =>
         throw new InvalidOperationException();
-    }
 }
