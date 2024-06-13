@@ -25,8 +25,8 @@
                                            Margin="12,12,12,0">
             <ais:AvaloniaInfiniteScrollControl.ItemTemplate>
                 <DataTemplate>
-                    <!-- TODO tapped works only on taps on texts but not on spaces -->
-                    <StackPanel Margin="0,0,0,12">
+                    <StackPanel Margin="0,0,0,12"
+                                Background="Transparent">
                         <i:Interaction.Behaviors>
                             <ia:EventTriggerBehavior EventName="Tapped">
                                 <ia:InvokeCommandAction

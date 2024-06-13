@@ -73,6 +73,6 @@ public class ResultViewModel : ViewModelBase {
     public IRelayCommand<Poetry> ShowPoetryCommand { get; }
 
     public void ShowPoetry(Poetry poetry) {
-        Status = poetry.Name;
+        // TODO
     }
 }
