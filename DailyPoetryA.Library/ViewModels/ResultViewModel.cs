@@ -38,6 +38,7 @@ public class ResultViewModel : ViewModelBase {
 
             }
         };
+        ShowPoetryCommand = new RelayCommand<Poetry>(ShowPoetry);
     }
 
     private bool _canLoadMore;
@@ -68,4 +69,10 @@ public class ResultViewModel : ViewModelBase {
     public const string NoMoreResult = "没有更多结果";
 
     public const int PageSize = 20;
+
+    public IRelayCommand<Poetry> ShowPoetryCommand { get; }
+
+    public void ShowPoetry(Poetry poetry) {
+        Status = poetry.Name;
+    }
 }

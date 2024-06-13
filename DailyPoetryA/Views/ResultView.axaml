@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:lc="using:DailyPoetryA.Converters"
              xmlns:ais="using:AvaloniaInfiniteScrolling"
              mc:Ignorable="d"
@@ -23,13 +25,21 @@
                                            Margin="12,12,12,0">
             <ais:AvaloniaInfiniteScrollControl.ItemTemplate>
                 <DataTemplate>
+                    <!-- TODO tapped works only on taps on texts but not on spaces -->
                     <StackPanel Margin="0,0,0,12">
+                        <i:Interaction.Behaviors>
+                            <ia:EventTriggerBehavior EventName="Tapped">
+                                <ia:InvokeCommandAction
+                                    Command="{Binding DataContext.ShowPoetryCommand, ElementName=TheResultView}"
+                                    CommandParameter="{Binding}">
+                                </ia:InvokeCommandAction>
+                            </ia:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
                         <TextBlock Text="{Binding Name}"
                                    FontWeight="Bold" />
                         <TextBlock
                             Text="{Binding Converter={StaticResource PoetryToString}}" />
                     </StackPanel>
-
                 </DataTemplate>
             </ais:AvaloniaInfiniteScrollControl.ItemTemplate>
         </ais:AvaloniaInfiniteScrollControl>

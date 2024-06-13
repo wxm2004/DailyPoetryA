@@ -52,11 +52,9 @@
 
                 <ListBox Grid.Row="1"
                          ItemsSource="{Binding Source={x:Static lvm:MenuItem.MenuItems}}"
-                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
-                         x:Name="MenuListBox">
+                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
                     <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="Tapped"
-                                                 SourceObject="{Binding #MenuListBox}">
+                        <ia:EventTriggerBehavior EventName="Tapped">
                             <ia:InvokeCommandAction
                                 Command="{Binding OnMenuTappedCommand}">
                             </ia:InvokeCommandAction>
