@@ -72,7 +72,6 @@ public class ResultViewModel : ViewModelBase {
 
     public IRelayCommand<Poetry> ShowPoetryCommand { get; }
 
-    public void ShowPoetry(Poetry poetry) {
-        // TODO
-    }
+    public void ShowPoetry(Poetry poetry) =>
+        _contentNavigationService.NavigateTo(ContentNavigationConstant.DetailView, poetry);
 }
