@@ -73,21 +73,27 @@ public class TodayViewModelTest {
         var mockImageService = todayImageServiceMock.Object;
 
         var todayPoetryServiceMock = new Mock<ITodayPoetryService>();
+        todayPoetryServiceMock.Setup(p => p.GetTodayPoetryAsync())
+            .ReturnsAsync(new TodayPoetry());
         var mockTodayPoetryService = todayPoetryServiceMock.Object;
 
         var todayViewModel = new TodayViewModel(mockImageService,
             mockTodayPoetryService, null);
         var todayImageList = new List<TodayImage>();
+        var todayPoetryList = new List<TodayPoetry>();
         todayViewModel.PropertyChanged += (sender, args) => {
             switch (args.PropertyName) {
                 case nameof(TodayViewModel.TodayImage):
                     todayImageList.Add(todayViewModel.TodayImage);
                     break;
+                case nameof(todayViewModel.TodayPoetry):
+                    todayPoetryList.Add(todayViewModel.TodayPoetry);
+                    break;
             }
         };
 
         todayViewModel.OnInitialized();
-        while (todayImageList.Count != 1) {
+        while (todayImageList.Count != 1 || todayPoetryList.Count != 1) {
             await Task.Delay(100);
         }
 
@@ -120,7 +126,9 @@ public class TodayViewModelTest {
             .Callback<string, object>((s, o) => parameter = o);
         var mockContentNavigationService = contentNavigationServiceMock.Object;
 
-        var todayPoetry = new TodayPoetry { Name = "小重山", Author = "张良能" };
+        var todayPoetry = new TodayPoetry {
+            Name = "小重山", Author = "张良能"
+        };
 
         var todayViewModel =
             new TodayViewModel(null, null, mockContentNavigationService);
