@@ -22,16 +22,16 @@ public class TodayViewModel : ViewModelBase {
         QueryCommand = new RelayCommand(Query);
     }
 
-    private TodayImage? _todayImage;
+    private TodayImage _todayImage;
 
-    public TodayImage? TodayImage {
+    public TodayImage TodayImage {
         get => _todayImage;
         private set => SetProperty(ref _todayImage, value);
     }
 
-    private TodayPoetry? _todayPoetry;
+    private TodayPoetry _todayPoetry;
 
-    public TodayPoetry? TodayPoetry {
+    public TodayPoetry TodayPoetry {
         get => _todayPoetry;
         set => SetProperty(ref _todayPoetry, value);
     }

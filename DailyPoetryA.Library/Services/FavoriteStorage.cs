@@ -13,7 +13,7 @@ public class FavoriteStorage : IFavoriteStorage {
 
     public event EventHandler<FavoriteStorageUpdatedEventArgs>? Updated;
 
-    private SQLiteAsyncConnection? _connection;
+    private SQLiteAsyncConnection _connection;
 
     private SQLiteAsyncConnection Connection =>
         _connection ??= new SQLiteAsyncConnection(PoetryDbPath);
@@ -34,7 +34,7 @@ public class FavoriteStorage : IFavoriteStorage {
             FavoriteStorageConstant.Version);
     }
 
-    public async Task<Favorite?> GetFavoriteAsync(int poetryId) =>
+    public async Task<Favorite> GetFavoriteAsync(int poetryId) =>
         await Connection.Table<Favorite>()
             .FirstOrDefaultAsync(p => p.PoetryId == poetryId);
 

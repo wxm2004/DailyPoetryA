@@ -52,7 +52,7 @@ public class FavoriteViewModel : ViewModelBase {
     
     public IRelayCommand<Poetry> ShowPoetryCommand { get; }
 
-    private async void FavoriteStorageOnUpdated(object? sender,
+    private async void FavoriteStorageOnUpdated(object sender,
         FavoriteStorageUpdatedEventArgs e) {
         var favorite = e.UpdatedFavorite;
         PoetryFavoriteCollection.Remove(

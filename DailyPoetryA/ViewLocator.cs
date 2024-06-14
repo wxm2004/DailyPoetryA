@@ -9,7 +9,7 @@ namespace DailyPoetryA;
 public class ViewLocator : IDataTemplate {
     private Dictionary<Type, Control> _cache = new();
 
-    public Control? Build(object? data) {
+    public Control Build(object data) {
         if (data is null)
             return null;
 
@@ -29,7 +29,7 @@ public class ViewLocator : IDataTemplate {
         return control;
     }
 
-    public bool Match(object? data) {
+    public bool Match(object data) {
         return data is ViewModelBase;
     }
 }

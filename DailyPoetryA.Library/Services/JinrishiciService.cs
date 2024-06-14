@@ -149,7 +149,7 @@ public class JinrishiciService : ITodayPoetryService {
 }
 
 public class JinrishiciToken {
-    public string? Data { get; set; } = string.Empty;
+    public string Data { get; set; } = string.Empty;
 }
 
 public class JinrishiciOrigin {
