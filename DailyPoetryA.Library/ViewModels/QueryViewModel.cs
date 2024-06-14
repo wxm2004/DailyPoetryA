@@ -9,7 +9,7 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class QueryViewModel : ViewModelBase {
-    private IContentNavigationService _contentNavigationService;
+    private readonly IContentNavigationService _contentNavigationService;
 
     public QueryViewModel(IContentNavigationService contentNavigationService) {
         _contentNavigationService = contentNavigationService;

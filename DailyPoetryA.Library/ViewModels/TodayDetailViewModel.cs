@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using DailyPoetryA.Library.Models;

@@ -1,6 +1,4 @@
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using System.Windows.Input;
 using AvaloniaInfiniteScrolling;
 using CommunityToolkit.Mvvm.Input;
 using DailyPoetryA.Library.Models;
@@ -9,9 +7,9 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class ResultViewModel : ViewModelBase {
-    private IPoetryStorage _poetryStorage;
+    private readonly IPoetryStorage _poetryStorage;
 
-    private IContentNavigationService _contentNavigationService;
+    private readonly IContentNavigationService _contentNavigationService;
 
     private Expression<Func<Poetry, bool>> _where;
 

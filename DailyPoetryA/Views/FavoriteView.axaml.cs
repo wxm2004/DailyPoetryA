@@ -2,8 +2,8 @@ using Avalonia.Controls;
 
 namespace DailyPoetryA.Views;
 
-public partial class MainView : UserControl {
-    public MainView() {
+public partial class FavoriteView : UserControl {
+    public FavoriteView() {
         InitializeComponent();
     }
 }

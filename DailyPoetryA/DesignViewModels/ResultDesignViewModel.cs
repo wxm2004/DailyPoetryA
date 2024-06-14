@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using AvaloniaInfiniteScrolling;
 using DailyPoetryA.Library.Models;
 using DailyPoetryA.Library.Services;

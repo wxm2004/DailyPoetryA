@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:lc="using:DailyPoetryA.Converters"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="DailyPoetryA.Views.FavoriteView"
+             x:Name="TheFavoriteView"
+             d:DataContext="{Binding FavoriteViewModel, Source={StaticResource ServiceLocator}}">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <UserControl.Resources>
+        <lc:PoetryToStringConverter x:Key="PoetryToString"></lc:PoetryToStringConverter>
+    </UserControl.Resources>
+    <ItemsControl ItemsSource="{Binding PoetryFavoriteCollection}"
+                  Margin="12">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Margin="0,0,0,12"
+                            Background="Transparent">
+                    <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped">
+                            <ia:InvokeCommandAction
+                                Command="{Binding DataContext.ShowPoetryCommand, ElementName=TheFavoriteView}"
+                                CommandParameter="{Binding Poetry}">
+                            </ia:InvokeCommandAction>
+                        </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <TextBlock Text="{Binding Poetry.Name}"
+                               FontWeight="Bold" />
+                    <TextBlock
+                        Text="{Binding Poetry, Converter={StaticResource PoetryToString}}" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

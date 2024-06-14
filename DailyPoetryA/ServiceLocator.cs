@@ -90,6 +90,7 @@ public class ServiceLocator {
         serviceCollection.AddSingleton<ITodayImageStorage, TodayImageStorage>();
         serviceCollection
             .AddSingleton<ITodayPoetryService, JinrishiciService>();
+        serviceCollection.AddSingleton<IFavoriteStorage, FavoriteStorage>();
 
         serviceCollection.AddSingleton<ResultDesignViewModel>();
 

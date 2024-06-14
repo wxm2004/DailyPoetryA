@@ -6,9 +6,9 @@ using DailyPoetryA.Library.Services;
 namespace DailyPoetryA.Library.ViewModels;
 
 public class TodayViewModel : ViewModelBase {
-    private ITodayImageService _todayImageService;
-    private ITodayPoetryService _todayPoetryService;
-    private IContentNavigationService _contentNavigationService;
+    private readonly ITodayImageService _todayImageService;
+    private readonly ITodayPoetryService _todayPoetryService;
+    private readonly IContentNavigationService _contentNavigationService;
 
     public TodayViewModel(ITodayImageService todayImageService,
         ITodayPoetryService todayPoetryService,
