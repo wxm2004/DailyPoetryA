@@ -1,3 +1,5 @@
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using DailyPoetryA.Library.Models;
 using DailyPoetryA.Library.Services;
 
@@ -8,6 +10,8 @@ public class DetailViewModel : ViewModelBase {
 
     public DetailViewModel(IFavoriteStorage favoriteStorage) {
         _favoriteStorage = favoriteStorage;
+
+        OnInitializedCommand = new AsyncRelayCommand(OnInitializedAsync);
     }
 
     public override void SetParameter(object parameter) {
@@ -24,13 +28,15 @@ public class DetailViewModel : ViewModelBase {
     }
 
     private Poetry _poetry;
-    
+
     public Favorite Favorite {
         get => _favorite;
         set => SetProperty(ref _favorite, value);
     }
 
     private Favorite _favorite;
-    
-    
+
+    public ICommand OnInitializedCommand { get; }
+
+    public async Task OnInitializedAsync() { }
 }

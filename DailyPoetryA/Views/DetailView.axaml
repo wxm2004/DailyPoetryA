@@ -2,10 +2,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="DailyPoetryA.Views.DetailView"
              d:DataContext="{Binding DetailViewModel, Source={StaticResource ServiceLocator}}">
-    <!-- TODO -->
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <ScrollViewer>
+        <StackPanel Margin="8">
+            <TextBlock FontSize="18"
+                       Margin="0,0,0,8"
+                       HorizontalAlignment="Center"
+                       Text="{Binding Poetry.Name}" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,8">
+                <TextBlock FontSize="12"
+                           Text="{Binding Poetry.Dynasty}" />
+                <TextBlock FontSize="12"
+                           Text="·" />
+                <TextBlock FontSize="12"
+                           Text="{Binding Poetry.Author}" />
+            </StackPanel>
+            <TextBlock FontSize="18"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,8"
+                       Text="{Binding Poetry.Content}"
+                       TextWrapping="Wrap" />
+            <!-- <StackLayout Margin="0,0,0,8" -->
+            <!--              HorizontalOptions="Center" -->
+            <!--              Orientation="Horizontal" -->
+            <!--              IsVisible="{Binding IsLoading}"> -->
+            <!--     <ActivityIndicator WidthRequest="30" -->
+            <!--                        IsRunning="{Binding IsLoading}" /> -->
+            <!--     <Label Text="正在载入" -->
+            <!--            FontSize="12" -->
+            <!--            VerticalOptions="Center" -->
+            <!--            Margin="8,0,0,0" /> -->
+            <!-- </StackLayout> -->
+            <!-- <StackLayout Margin="0,0,0,8" -->
+            <!--              HorizontalOptions="Center" -->
+            <!--              Orientation="Horizontal" -->
+            <!--              IsVisible="{Binding IsLoading, Converter={StaticResource Negative}}"> -->
+            <!--     <Switch IsToggled="{Binding Favorite.IsFavorite}"> -->
+            <!--         <Switch.Behaviors> -->
+            <!--             <b:MauiEventHandlerBehavior EventName="Toggled"> -->
+            <!--                 <b:MauiActionCollection> -->
+            <!--                     <b:MauiInvokeCommandAction -->
+            <!--                         Command="{Binding FavoriteToggledCommand}" /> -->
+            <!--                 </b:MauiActionCollection> -->
+            <!--             </b:MauiEventHandlerBehavior> -->
+            <!--         </Switch.Behaviors> -->
+            <!--     </Switch> -->
+            <!--     <Label FontSize="12" -->
+            <!--            Text="{Binding Favorite.IsFavorite, Converter={StaticResource Favorite}}" -->
+            <!--            VerticalOptions="Center" -->
+            <!--            Margin="8,0,0,0" /> -->
+            <!-- </StackLayout> -->
+        </StackPanel>
+
+    </ScrollViewer>
 </UserControl>
