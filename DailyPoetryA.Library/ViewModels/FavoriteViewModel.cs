@@ -23,6 +23,7 @@ public class FavoriteViewModel : ViewModelBase {
         _favoriteStorage.Updated += FavoriteStorageOnUpdated;
 
         OnInitializedCommand = new AsyncRelayCommand(OnInitializedAsync);
+        ShowPoetryCommand = new RelayCommand<Poetry>(ShowPoetry);
     }
 
     public ObservableRangeCollection<PoetryFavorite> PoetryFavoriteCollection { get; } = new();
@@ -49,8 +50,11 @@ public class FavoriteViewModel : ViewModelBase {
 
         IsLoading = false;
     }
-    
+
     public IRelayCommand<Poetry> ShowPoetryCommand { get; }
+
+    public void ShowPoetry(Poetry poetry) =>
+        _contentNavigationService.NavigateTo(ContentNavigationConstant.DetailView, poetry);
 
     private async void FavoriteStorageOnUpdated(object sender,
         FavoriteStorageUpdatedEventArgs e) {
