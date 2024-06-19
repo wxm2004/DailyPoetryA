@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:lc="using:DailyPoetryA.Converters"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="DailyPoetryA.Views.DetailView"
              d:DataContext="{Binding DetailViewModel, Source={StaticResource ServiceLocator}}">
+    <UserControl.Resources>
+        <lc:NegativeConverter x:Key="NegativeConverter"></lc:NegativeConverter>
+    </UserControl.Resources>
     <i:Interaction.Behaviors>
         <ia:EventTriggerBehavior EventName="Initialized">
             <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
@@ -35,36 +39,39 @@
                        Margin="0,0,0,8"
                        Text="{Binding Poetry.Content}"
                        TextWrapping="Wrap" />
-            <!-- <StackLayout Margin="0,0,0,8" -->
-            <!--              HorizontalOptions="Center" -->
-            <!--              Orientation="Horizontal" -->
-            <!--              IsVisible="{Binding IsLoading}"> -->
-            <!--     <ActivityIndicator WidthRequest="30" -->
-            <!--                        IsRunning="{Binding IsLoading}" /> -->
-            <!--     <Label Text="正在载入" -->
-            <!--            FontSize="12" -->
-            <!--            VerticalOptions="Center" -->
-            <!--            Margin="8,0,0,0" /> -->
-            <!-- </StackLayout> -->
-            <!-- <StackLayout Margin="0,0,0,8" -->
-            <!--              HorizontalOptions="Center" -->
-            <!--              Orientation="Horizontal" -->
-            <!--              IsVisible="{Binding IsLoading, Converter={StaticResource Negative}}"> -->
-            <!--     <Switch IsToggled="{Binding Favorite.IsFavorite}"> -->
-            <!--         <Switch.Behaviors> -->
-            <!--             <b:MauiEventHandlerBehavior EventName="Toggled"> -->
-            <!--                 <b:MauiActionCollection> -->
-            <!--                     <b:MauiInvokeCommandAction -->
-            <!--                         Command="{Binding FavoriteToggledCommand}" /> -->
-            <!--                 </b:MauiActionCollection> -->
-            <!--             </b:MauiEventHandlerBehavior> -->
-            <!--         </Switch.Behaviors> -->
-            <!--     </Switch> -->
-            <!--     <Label FontSize="12" -->
-            <!--            Text="{Binding Favorite.IsFavorite, Converter={StaticResource Favorite}}" -->
-            <!--            VerticalOptions="Center" -->
-            <!--            Margin="8,0,0,0" /> -->
-            <!-- </StackLayout> -->
+            <StackPanel Margin="0,0,0,8"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        IsVisible="{Binding IsLoading}">
+                <ProgressBar Width="30"
+                             Height="30"
+                             IsIndeterminate="True"
+                             Theme="{DynamicResource ProgressRing}"
+                             ShowProgressText="False" />
+                <TextBlock Text="正在载入"
+                           FontSize="12"
+                           VerticalAlignment="Center"
+                           Margin="8,0,0,0" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,8"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        IsVisible="{Binding IsLoading, Converter={StaticResource NegativeConverter}}">
+                <ToggleSwitch OnContent="已收藏"
+                              OffContent="未收藏"
+                              IsChecked="{Binding Favorite.IsFavorite}"
+                              Command="{Binding FavoriteSwitchCommand}">
+                    <!-- IsToggled="{Binding Favorite.IsFavorite}"> -->
+                    <!-- <Switch.Behaviors> -->
+                    <!--     <b:MauiEventHandlerBehavior EventName="Toggled"> -->
+                    <!--         <b:MauiActionCollection> -->
+                    <!--             <b:MauiInvokeCommandAction -->
+                    <!--                 Command="{Binding FavoriteToggledCommand}" /> -->
+                    <!--         </b:MauiActionCollection> -->
+                    <!--     </b:MauiEventHandlerBehavior> -->
+                    <!-- </Switch.Behaviors> -->
+                </ToggleSwitch>
+            </StackPanel>
         </StackPanel>
 
     </ScrollViewer>

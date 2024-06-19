@@ -12,6 +12,7 @@ public class DetailViewModel : ViewModelBase {
         _favoriteStorage = favoriteStorage;
 
         OnInitializedCommand = new AsyncRelayCommand(OnInitializedAsync);
+        FavoriteSwitchCommand = new AsyncRelayCommand(FavoriteSwitchClickedAsync);
     }
 
     public override void SetParameter(object parameter) {
@@ -52,5 +53,11 @@ public class DetailViewModel : ViewModelBase {
         // IsFavorite = favorite.IsFavorite;
         Favorite = favorite;
         IsLoading = false;
+    }
+    
+    public ICommand FavoriteSwitchCommand { get; }
+
+    public async Task FavoriteSwitchClickedAsync() {
+        // TODO
     }
 }
