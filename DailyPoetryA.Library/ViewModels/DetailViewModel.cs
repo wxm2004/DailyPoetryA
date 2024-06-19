@@ -35,8 +35,22 @@ public class DetailViewModel : ViewModelBase {
     }
 
     private Favorite _favorite;
+    
+    private bool _isLoading;
 
+    public bool IsLoading {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
+    
     public ICommand OnInitializedCommand { get; }
 
-    public async Task OnInitializedAsync() { }
+    public async Task OnInitializedAsync() {
+        IsLoading = true;
+        var favorite = await _favoriteStorage.GetFavoriteAsync(Poetry.Id) ??
+            new Favorite {PoetryId = Poetry.Id};
+        // IsFavorite = favorite.IsFavorite;
+        Favorite = favorite;
+        IsLoading = false;
+    }
 }
