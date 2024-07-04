@@ -14,8 +14,8 @@
         <lc:NegativeConverter x:Key="NegativeConverter"></lc:NegativeConverter>
     </UserControl.Resources>
     <i:Interaction.Behaviors>
-        <ia:EventTriggerBehavior EventName="Initialized">
-            <ia:InvokeCommandAction Command="{Binding OnInitializedCommand}"></ia:InvokeCommandAction>
+        <ia:EventTriggerBehavior EventName="Loaded">
+            <ia:InvokeCommandAction Command="{Binding OnLoadedCommand}"></ia:InvokeCommandAction>
         </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <ScrollViewer>

@@ -11,7 +11,7 @@ public class DetailViewModel : ViewModelBase {
     public DetailViewModel(IFavoriteStorage favoriteStorage) {
         _favoriteStorage = favoriteStorage;
 
-        OnInitializedCommand = new AsyncRelayCommand(OnInitializedAsync);
+        OnLoadedCommand = new AsyncRelayCommand(OnLoadedAsync);
         FavoriteSwitchCommand = new AsyncRelayCommand(FavoriteSwitchClickedAsync);
     }
 
@@ -44,13 +44,12 @@ public class DetailViewModel : ViewModelBase {
         set => SetProperty(ref _isLoading, value);
     }
     
-    public ICommand OnInitializedCommand { get; }
+    public ICommand OnLoadedCommand { get; }
 
-    public async Task OnInitializedAsync() {
+    public async Task OnLoadedAsync() {
         IsLoading = true;
         var favorite = await _favoriteStorage.GetFavoriteAsync(Poetry.Id) ??
             new Favorite {PoetryId = Poetry.Id};
-        // IsFavorite = favorite.IsFavorite;
         Favorite = favorite;
         IsLoading = false;
     }
@@ -58,6 +57,6 @@ public class DetailViewModel : ViewModelBase {
     public ICommand FavoriteSwitchCommand { get; }
 
     public async Task FavoriteSwitchClickedAsync() {
-        // TODO
+        await _favoriteStorage.SaveFavoriteAsync(Favorite);
     }
 }
